@@ -458,6 +458,11 @@ function initState() {
     bossActive: false,
     bossAsteroid: null,
     bossMissileTimer: 0,
+
+    waveTimer: 0,
+    _spawned: 0,
+    _missilesSpawned: 0,
+    _asteroidsSpawned: 0,
   };
 }
 
@@ -998,27 +1003,26 @@ function updateWave(dt) {
   const cfg = waveConfig(state.wave);
 
   if (state.waveTimer <= 0 && !state.bossActive) {
-    // Spawn threat
     const total = cfg.missiles + cfg.asteroids;
-    const spawned = state._spawned || 0;
+    const spawned = state._spawned;
     if (spawned < total) {
-      const asteroidChance = cfg.asteroids / total;
+      const asteroidChance = total > 0 ? cfg.asteroids / total : 0;
       if (Math.random() < asteroidChance && state._asteroidsSpawned < cfg.asteroids) {
         state.asteroids.push(spawnAsteroid(false));
-        state._asteroidsSpawned = (state._asteroidsSpawned || 0) + 1;
+        state._asteroidsSpawned++;
       } else if (state._missilesSpawned < cfg.missiles) {
         spawnMissile(cfg);
-        state._missilesSpawned = (state._missilesSpawned || 0) + 1;
+        state._missilesSpawned++;
       } else if (state._asteroidsSpawned < cfg.asteroids) {
         state.asteroids.push(spawnAsteroid(false));
-        state._asteroidsSpawned = (state._asteroidsSpawned || 0) + 1;
+        state._asteroidsSpawned++;
       }
-      state._spawned = spawned + 1;
+      state._spawned++;
       state.waveTimer = cfg.interval / 1000;
     }
 
     // Boss wave special
-    if (cfg.boss && !state.bossAsteroid && spawned >= cfg.missiles + cfg.asteroids - 1) {
+    if (cfg.boss && !state.bossAsteroid && state._spawned >= cfg.missiles + cfg.asteroids) {
       state.bossAsteroid = spawnAsteroid(true);
       state.bossAsteroid.x = W/2; state.bossAsteroid.y = -80;
       state.bossAsteroid.vx = 0; state.bossAsteroid.vy = 25;
@@ -1028,9 +1032,12 @@ function updateWave(dt) {
     }
   }
 
-  // Check wave clear
-  const waveCleared = state.enemyMissiles.length === 0 && state.asteroids.length === 0
-    && (state._spawned >= (cfg.missiles + cfg.asteroids + (cfg.boss ? 1 : 0)));
+  // Check wave clear — only after spawning has begun
+  const totalExpected = cfg.missiles + cfg.asteroids + (cfg.boss ? 1 : 0);
+  const waveCleared = state._spawned > 0
+    && state.enemyMissiles.length === 0
+    && state.asteroids.length === 0
+    && state._spawned >= totalExpected;
 
   if (waveCleared && state.waveActive) {
     state.waveActive = false;
@@ -1185,7 +1192,7 @@ function updateScore() {
 
 function startWave() {
   state.waveActive = true;
-  state.waveTimer = 0;
+  state.waveTimer = 0;  // fire first spawn immediately
   state._spawned = 0;
   state._missilesSpawned = 0;
   state._asteroidsSpawned = 0;
