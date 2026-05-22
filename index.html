@@ -459,10 +459,8 @@ function initState() {
     bossAsteroid: null,
     bossMissileTimer: 0,
 
-    waveTimer: 0,
-    _spawned: 0,
-    _missilesSpawned: 0,
-    _asteroidsSpawned: 0,
+    spawnQueue: null,
+    spawnTimer: 0,
   };
 }
 
@@ -999,47 +997,49 @@ function updateExplosions(dt) {
 }
 
 function updateWave(dt) {
-  state.waveTimer -= dt;
   const cfg = waveConfig(state.wave);
 
-  if (state.waveTimer <= 0 && !state.bossActive) {
-    const total = cfg.missiles + cfg.asteroids;
-    const spawned = state._spawned;
-    if (spawned < total) {
-      const asteroidChance = total > 0 ? cfg.asteroids / total : 0;
-      if (Math.random() < asteroidChance && state._asteroidsSpawned < cfg.asteroids) {
-        state.asteroids.push(spawnAsteroid(false));
-        state._asteroidsSpawned++;
-      } else if (state._missilesSpawned < cfg.missiles) {
-        spawnMissile(cfg);
-        state._missilesSpawned++;
-      } else if (state._asteroidsSpawned < cfg.asteroids) {
-        state.asteroids.push(spawnAsteroid(false));
-        state._asteroidsSpawned++;
-      }
-      state._spawned++;
-      state.waveTimer = cfg.interval / 1000;
+  // Build spawn queue on first tick of wave
+  if (!state.spawnQueue) {
+    const queue = [];
+    for (let i = 0; i < cfg.missiles; i++) queue.push('missile');
+    for (let i = 0; i < cfg.asteroids; i++) queue.push('asteroid');
+    // Shuffle
+    for (let i = queue.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [queue[i], queue[j]] = [queue[j], queue[i]];
     }
+    if (cfg.boss) queue.push('boss');
+    state.spawnQueue = queue;
+    state.spawnTimer = 1.0; // 1 second before first spawn
+  }
 
-    // Boss wave special
-    if (cfg.boss && !state.bossAsteroid && state._spawned >= cfg.missiles + cfg.asteroids) {
-      state.bossAsteroid = spawnAsteroid(true);
-      state.bossAsteroid.x = W/2; state.bossAsteroid.y = -80;
-      state.bossAsteroid.vx = 0; state.bossAsteroid.vy = 25;
-      state.asteroids.push(state.bossAsteroid);
-      state.bossActive = true;
-      state.bossMissileTimer = 2;
+  // Tick spawn timer
+  if (state.spawnQueue.length > 0) {
+    state.spawnTimer -= dt;
+    if (state.spawnTimer <= 0) {
+      const type = state.spawnQueue.shift();
+      if (type === 'missile') {
+        spawnMissile(cfg);
+      } else if (type === 'asteroid') {
+        state.asteroids.push(spawnAsteroid(false));
+      } else if (type === 'boss' && !state.bossAsteroid) {
+        const ba = spawnAsteroid(true);
+        ba.x = W/2; ba.y = -80; ba.vx = 0; ba.vy = 25;
+        state.asteroids.push(ba);
+        state.bossAsteroid = ba;
+        state.bossActive = true;
+        state.bossMissileTimer = 2;
+      }
+      state.spawnTimer = cfg.interval / 1000;
     }
   }
 
-  // Check wave clear — only after spawning has begun
-  const totalExpected = cfg.missiles + cfg.asteroids + (cfg.boss ? 1 : 0);
-  const waveCleared = state._spawned > 0
-    && state.enemyMissiles.length === 0
-    && state.asteroids.length === 0
-    && state._spawned >= totalExpected;
-
-  if (waveCleared && state.waveActive) {
+  // Wave clear: queue empty and all enemies gone
+  if (state.spawnQueue && state.spawnQueue.length === 0
+      && state.enemyMissiles.length === 0
+      && state.asteroids.length === 0) {
+    state.spawnQueue = null;
     state.waveActive = false;
     if (state.wave >= state.totalWaves) {
       state.victory = true;
@@ -1047,15 +1047,11 @@ function updateWave(dt) {
       state.wave++;
       document.getElementById('wave-display').textContent = `WAVE ${state.wave} / ${state.totalWaves}`;
       state.intermissionTimer = 3;
-      // Restock interceptor ammo
       state.interceptorAmmo = Math.min(state.interceptorAmmo + 5, 15);
       document.getElementById('missile-ammo').textContent = state.interceptorAmmo;
     }
     state.bossActive = false;
     state.bossAsteroid = null;
-    state._spawned = 0;
-    state._missilesSpawned = 0;
-    state._asteroidsSpawned = 0;
   }
 }
 
@@ -1192,10 +1188,8 @@ function updateScore() {
 
 function startWave() {
   state.waveActive = true;
-  state.waveTimer = 0;  // fire first spawn immediately
-  state._spawned = 0;
-  state._missilesSpawned = 0;
-  state._asteroidsSpawned = 0;
+  state.spawnQueue = null; // will be built on first tick of updateWave
+  state.spawnTimer = 0;
 }
 
 // --- Drawing ---
