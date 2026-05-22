@@ -4,242 +4,64 @@
 <meta charset="UTF-8">
 <title>DEFENDER EARTH</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: #000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    overflow: hidden;
-    font-family: 'Share Tech Mono', monospace;
-    color: #0ff;
-  }
-
-  #ui-top {
-    width: 900px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6px 10px;
-    background: rgba(0,0,0,0.8);
-    border: 1px solid #0ff3;
-    border-bottom: none;
-  }
-
-  .player-hud {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-  }
-
-  .hud-label {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 10px;
-    color: #0ff8;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-
-  .hud-val {
-    font-size: 13px;
-    color: #0ff;
-  }
-
-  #wave-display {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 12px;
-    color: #ff0;
-    letter-spacing: 3px;
-  }
-
-  #score-display {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 14px;
-    color: #0ff;
-    letter-spacing: 2px;
-  }
-
-  canvas {
-    display: block;
-    border: 1px solid #0ff4;
-    cursor: none;
-  }
-
-  #ui-bottom {
-    width: 900px;
-    display: flex;
-    justify-content: space-between;
-    padding: 5px 10px;
-    background: rgba(0,0,0,0.8);
-    border: 1px solid #0ff3;
-    border-top: none;
-    font-size: 10px;
-    color: #0ff6;
-  }
-
-  #overlay {
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,10,0.92);
-    z-index: 10;
-  }
-
-  #overlay h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 48px;
-    font-weight: 900;
-    color: #0ff;
-    text-shadow: 0 0 40px #0ff, 0 0 80px #0ff6;
-    letter-spacing: 6px;
-    margin-bottom: 8px;
-  }
-
-  #overlay .sub {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 13px;
-    color: #ff06;
-    letter-spacing: 4px;
-    margin-bottom: 40px;
-  }
-
-  .controls-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-bottom: 40px;
-  }
-
-  .ctrl-box {
-    border: 1px solid #0ff3;
-    padding: 16px 20px;
-    background: rgba(0,255,255,0.04);
-  }
-
-  .ctrl-box h3 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 11px;
-    color: #ff0;
-    letter-spacing: 3px;
-    margin-bottom: 10px;
-  }
-
-  .ctrl-box p {
-    font-size: 11px;
-    color: #0ffa;
-    line-height: 1.8;
-  }
-
-  #start-btn {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 4px;
-    color: #000;
-    background: #0ff;
-    border: none;
-    padding: 14px 48px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.15s;
-    box-shadow: 0 0 30px #0ff8;
-  }
-
-  #start-btn:hover {
-    background: #fff;
-    box-shadow: 0 0 50px #fff;
-  }
-
-  #message {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 28px;
-    font-weight: 700;
-    color: #ff0;
-    text-shadow: 0 0 20px #ff0;
-    letter-spacing: 4px;
-    text-align: center;
-    margin-bottom: 20px;
-  }
-
-  #final-score {
-    font-size: 16px;
-    color: #0ff;
-    letter-spacing: 3px;
-    margin-bottom: 30px;
-  }
-
-  .ammo-pips {
-    display: flex; gap: 3px;
-  }
-  .pip {
-    width: 8px; height: 8px;
-    background: #0ff;
-    border-radius: 50%;
-  }
-  .pip.empty { background: #0ff2; border: 1px solid #0ff4; }
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;overflow:hidden;font-family:'Share Tech Mono',monospace;color:#0ff;}
+#ui-top{width:900px;display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:rgba(0,0,0,0.85);border:1px solid #0ff3;border-bottom:none;}
+.hud-label{font-family:'Orbitron',sans-serif;font-size:10px;color:#0ff8;text-transform:uppercase;letter-spacing:2px;}
+.hud-val{font-size:13px;color:#0ff;}
+#wave-display{font-family:'Orbitron',sans-serif;font-size:12px;color:#ff0;letter-spacing:3px;text-align:center;}
+#score-display{font-family:'Orbitron',sans-serif;font-size:14px;color:#0ff;letter-spacing:2px;text-align:center;}
+canvas{display:block;border:1px solid #0ff4;cursor:none;}
+#ui-bottom{width:900px;display:flex;justify-content:space-between;padding:4px 10px;background:rgba(0,0,0,0.85);border:1px solid #0ff3;border-top:none;font-size:10px;color:#0ff6;}
+#gp-status{width:900px;text-align:center;padding:3px;background:rgba(0,0,0,0.8);border:1px solid #0ff2;border-top:none;font-size:9px;color:#f006;font-family:'Share Tech Mono',monospace;}
+#overlay{position:fixed;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(0,0,10,0.93);z-index:10;}
+#overlay h1{font-family:'Orbitron',sans-serif;font-size:48px;font-weight:900;color:#0ff;text-shadow:0 0 40px #0ff,0 0 80px #0ff6;letter-spacing:6px;margin-bottom:8px;}
+#overlay .sub{font-family:'Orbitron',sans-serif;font-size:13px;color:#ff06;letter-spacing:4px;margin-bottom:30px;}
+.controls-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:30px;}
+.ctrl-box{border:1px solid #0ff3;padding:14px 18px;background:rgba(0,255,255,0.04);}
+.ctrl-box h3{font-family:'Orbitron',sans-serif;font-size:11px;color:#ff0;letter-spacing:3px;margin-bottom:8px;}
+.ctrl-box p{font-size:11px;color:#0ffa;line-height:1.8;}
+#start-btn{font-family:'Orbitron',sans-serif;font-size:16px;font-weight:700;letter-spacing:4px;color:#000;background:#0ff;border:none;padding:14px 48px;cursor:pointer;box-shadow:0 0 30px #0ff8;}
+#start-btn:hover{background:#fff;box-shadow:0 0 50px #fff;}
+#message{font-family:'Orbitron',sans-serif;font-size:28px;font-weight:700;color:#ff0;text-shadow:0 0 20px #ff0;letter-spacing:4px;text-align:center;margin-bottom:16px;}
+#final-score{font-size:14px;color:#0ff;letter-spacing:3px;margin-bottom:24px;}
 </style>
 </head>
 <body>
-
 <div id="ui-top">
-  <div class="player-hud">
-    <div>
-      <div class="hud-label">Ship (Mouse)</div>
-      <div class="hud-val">❤️ <span id="ship-lives">3</span> &nbsp; 🔫 ∞</div>
-    </div>
+  <div>
+    <div class="hud-label">Ship — P1 (Mouse)</div>
+    <div class="hud-val">❤️ <span id="ship-lives">3</span></div>
   </div>
-  <div style="text-align:center">
+  <div>
     <div id="wave-display">WAVE 1 / 6</div>
     <div id="score-display">SCORE: 0</div>
   </div>
-  <div class="player-hud">
-    <div style="text-align:right">
-      <div class="hud-label">Interceptor (Keyboard)</div>
-      <div class="hud-val">❤️ — &nbsp; MISSILES: <span id="missile-ammo">10</span></div>
-    </div>
+  <div style="text-align:right">
+    <div class="hud-label">Interceptor — P2 (Keyboard)</div>
+    <div class="hud-val">MISSILES: <span id="missile-ammo">10</span></div>
   </div>
 </div>
-
 <canvas id="c" width="900" height="580"></canvas>
-
 <div id="ui-bottom">
-  <span>SHIP: MOUSE=aim/move | CLICK=fire | Ship auto-fires</span>
+  <span>P1: HOLD CLICK = fire laser (aim with mouse)</span>
   <span style="color:#cf08;font-size:9px">🕹 secret: type the name of a classic arcade game...</span>
-  <span>INTERCEPTOR: A/D=aim left/right | SPACE=fire missile</span>
+  <span>P2: A/D = rotate | SPACE = fire missile</span>
 </div>
-<div id="gp-status" style="width:900px;text-align:center;padding:3px;background:rgba(0,0,0,0.8);border:1px solid #0ff2;border-top:none;font-size:9px;color:#f006;font-family:'Share Tech Mono',monospace;">
-  🎮 No controller — plug in Xbox controller &amp; press a button
-</div>
+<div id="gp-status">🎮 No controller detected</div>
 
 <div id="overlay">
   <h1>DEFENDER EARTH</h1>
   <div class="sub">2-PLAYER CO-OP</div>
   <div class="controls-grid">
     <div class="ctrl-box">
-      <h3>🚀 Fighter Ship — Player 1</h3>
-      <p>
-        MOUSE → aim & move<br>
-        LEFT CLICK → fire laser<br>
-        <span style="color:#cf0">🎮 Left stick → move target</span><br>
-        <span style="color:#cf0">🎮 RT or A → fire laser</span>
-      </p>
+      <h3>🚀 Fighter Ship — P1</h3>
+      <p>MOUSE → move ship<br>HOLD CLICK → fire laser<br><span style="color:#cf0">🎮 L-stick move | LT fire</span></p>
     </div>
     <div class="ctrl-box">
-      <h3>🎯 Interceptor — Player 2</h3>
-      <p>
-        A / D → rotate aim | SPACE → fire<br>
-        <span style="color:#cf0">🎮 2 controllers: left stick → aim</span><br>
-        <span style="color:#cf0">🎮 RB or A → launch missile</span><br>
-        <span style="color:#cf0">🎮 1 controller: R-stick+RT</span>
-      </p>
+      <h3>🎯 Interceptor — P2</h3>
+      <p>A / D → rotate aim<br>SPACE → launch missile<br><span style="color:#cf0">🎮 R-stick aim | RT fire</span></p>
     </div>
   </div>
   <div id="message"></div>
@@ -248,203 +70,63 @@
 </div>
 
 <script>
+'use strict';
 const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
-const W = canvas.width, H = canvas.height;
-
+const W = 900, H = 580, GROUND_Y = H - 10;
+const BASE_X = W / 2, BASE_Y = H - 55;
 const CITY_NAMES = ['NYC','CLEVELAND','ATLANTA','LONDON','LA','TOKYO'];
-const CITY_Y = H - 30;
-const GROUND_Y = H - 10;
+const CITY_XS    = [60, 185, 320, 460, 615, 775];
 
-// --- State ---
-let state = {};
+// ── input ──────────────────────────────────────────────
+let mouse = {x: W/2, y: H/2};
+let mouseHeld = false;
 let keys = {};
-let mouse = { x: W/2, y: H/2 };
-let animId;
+
+canvas.addEventListener('mousemove', e => {
+  const r = canvas.getBoundingClientRect();
+  mouse.x = e.clientX - r.left;
+  mouse.y = e.clientY - r.top;
+});
+canvas.addEventListener('mousedown', () => mouseHeld = true);
+canvas.addEventListener('mouseup',   () => mouseHeld = false);
+window.addEventListener('keydown', e => {
+  keys[e.key] = true;
+  if (e.key === ' ') e.preventDefault();
+  checkEasterEgg(e.key);
+});
+window.addEventListener('keyup', e => { keys[e.key] = false; });
+
+// ── game state ─────────────────────────────────────────
+let G = null; // the game object, null when not running
+let animId = null;
 let lastTime = 0;
 
-// --- Easter Egg: DEFENDER code ---
-const DEFENDER_CODE = 'DEFENDER';
-let eggBuffer = '';
-let eggUnlocked = false;
-let eggBanner = null; // { text, age, maxAge }
-let defenderShip = null; // the wingman
-let defenderEntryPhase = false; // true while it's flying in
-
-// Interceptor base position (bottom center)
-const BASE_X = W / 2;
-const BASE_Y = H - 55;
-
-// --- Gamepad Support (Xbox) ---
-let gp1FirePrev = false;
-let gp2FirePrev = false;
-let gpSingleMode = false;
-
-const GP = {
-  A:0, B:1, X:2, Y:3,
-  LB:4, RB:5, LT:6, RT:7,
-  SELECT:8, START:9,
-  LS:10, RS:11,
-  DPAD_UP:12, DPAD_DOWN:13, DPAD_LEFT:14, DPAD_RIGHT:15
-};
-
-function deadzone(v, dz=0.15) { return Math.abs(v) < dz ? 0 : v; }
-
-function getConnectedPads() {
-  const raw = navigator.getGamepads ? navigator.getGamepads() : [];
-  const out = [];
-  for (let i = 0; i < raw.length; i++) if (raw[i] && raw[i].connected) out.push(raw[i]);
-  return out;
-}
-
-window.addEventListener('gamepadconnected', () => updateGamepadHUD());
-window.addEventListener('gamepaddisconnected', () => updateGamepadHUD());
-
-function updateGamepadHUD() {
-  const el = document.getElementById('gp-status');
-  if (!el) return;
-  const pads = getConnectedPads();
-  if (pads.length === 0) {
-    el.textContent = '🎮 No controller — plug in Xbox controller & press a button';
-    el.style.color = '#f006';
-  } else if (pads.length === 1) {
-    el.textContent = '🎮 1 controller: L-stick=ship  R-stick=intercept aim  LT=fire laser  RT=fire missile';
-    el.style.color = '#cf0b';
-  } else {
-    el.textContent = `🎮 2 controllers: P1 L-stick+RT=ship  |  P2 L-stick aim+RB=missile`;
-    el.style.color = '#0ffb';
-  }
-}
-
-function triggerInterceptorFire() {
-  if (state.interceptorCooldown > 0 || state.interceptorAmmo <= 0) return;
-  state.interceptorMissiles.push({
-    x: BASE_X, y: BASE_Y,
-    vx: Math.cos(state.interceptorAngle) * 380,
-    vy: Math.sin(state.interceptorAngle) * 380,
-    trail: [], life: 2.5
-  });
-  state.interceptorAmmo--;
-  document.getElementById('missile-ammo').textContent = state.interceptorAmmo;
-  state.interceptorCooldown = 0.4;
-}
-
-function pollGamepads(dt) {
-  if (!state.waveActive) return;
-  const pads = getConnectedPads();
-  if (pads.length === 0) return;
-
-  if (pads.length >= 2) {
-    gpSingleMode = false;
-    const p1 = pads[0], p2 = pads[1];
-
-    // P1 — left stick moves ship target
-    const lx1 = deadzone(p1.axes[0]), ly1 = deadzone(p1.axes[1]);
-    if (Math.hypot(lx1, ly1) > 0.1) {
-      mouse.x = Math.max(10, Math.min(W-10, mouse.x + lx1 * 320 * dt));
-      mouse.y = Math.max(10, Math.min(GROUND_Y-60, mouse.y + ly1 * 320 * dt));
-    }
-    const p1Fire = p1.buttons[GP.RT].value > 0.5 || p1.buttons[GP.A].pressed;
-    if (p1Fire && !gp1FirePrev) fireShipBullet(state.ship.x, state.ship.y, state.ship.angle);
-    gp1FirePrev = p1Fire;
-
-    // P2 — left stick aims interceptor
-    const lx2 = deadzone(p2.axes[0]), ly2 = deadzone(p2.axes[1]);
-    if (Math.hypot(lx2, ly2) > 0.15) {
-      let a = Math.atan2(ly2, lx2);
-      state.interceptorAngle = Math.max(-Math.PI, Math.min(0, a));
-    }
-    const p2Fire = p2.buttons[GP.RB].pressed || p2.buttons[GP.A].pressed || p2.buttons[GP.RT].value > 0.5;
-    if (p2Fire && !gp2FirePrev) triggerInterceptorFire();
-    gp2FirePrev = p2Fire;
-
-    if (p1.buttons[GP.START].pressed && p1.buttons[GP.SELECT].pressed) triggerDefenderEgg();
-
-  } else {
-    // Single controller: left stick = ship, right stick = interceptor
-    gpSingleMode = true;
-    const p = pads[0];
-    const lx = deadzone(p.axes[0]), ly = deadzone(p.axes[1]);
-    const rx = deadzone(p.axes[2]), ry = deadzone(p.axes[3]);
-
-    if (Math.hypot(lx, ly) > 0.1) {
-      mouse.x = Math.max(10, Math.min(W-10, mouse.x + lx * 320 * dt));
-      mouse.y = Math.max(10, Math.min(GROUND_Y-60, mouse.y + ly * 320 * dt));
-    }
-    const p1Fire = p.buttons[GP.LT].value > 0.5 || p.buttons[GP.A].pressed;
-    if (p1Fire && !gp1FirePrev) fireShipBullet(state.ship.x, state.ship.y, state.ship.angle);
-    gp1FirePrev = p1Fire;
-
-    if (Math.hypot(rx, ry) > 0.15) {
-      let a = Math.atan2(ry, rx);
-      state.interceptorAngle = Math.max(-Math.PI, Math.min(0, a));
-    }
-    if (p.buttons[GP.DPAD_LEFT].pressed)  state.interceptorAngle = Math.max(-Math.PI, state.interceptorAngle - 1.8*dt);
-    if (p.buttons[GP.DPAD_RIGHT].pressed) state.interceptorAngle = Math.min(0, state.interceptorAngle + 1.8*dt);
-
-    const p2Fire = p.buttons[GP.RT].value > 0.5 || p.buttons[GP.RB].pressed;
-    if (p2Fire && !gp2FirePrev) triggerInterceptorFire();
-    gp2FirePrev = p2Fire;
-
-    if (p.buttons[GP.START].pressed && p.buttons[GP.Y].pressed) triggerDefenderEgg();
-  }
-}
-
-function drawGamepadCursor() {
-  if (getConnectedPads().length === 0) return;
-  // Dashed line from ship to target
-  ctx.strokeStyle = 'rgba(255,200,0,0.35)';
-  ctx.lineWidth = 1;
-  ctx.setLineDash([4,6]);
-  ctx.beginPath();
-  ctx.moveTo(state.ship.x, state.ship.y);
-  ctx.lineTo(mouse.x, mouse.y);
-  ctx.stroke();
-  ctx.setLineDash([]);
-  // Yellow reticle
-  ctx.strokeStyle = '#ff0';
-  ctx.lineWidth = 1.5;
-  ctx.shadowColor = '#ff0';
-  ctx.shadowBlur = 8;
-  ctx.beginPath();
-  ctx.arc(mouse.x, mouse.y, 10, 0, Math.PI*2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(mouse.x-16,mouse.y); ctx.lineTo(mouse.x-11,mouse.y);
-  ctx.moveTo(mouse.x+11,mouse.y); ctx.lineTo(mouse.x+16,mouse.y);
-  ctx.moveTo(mouse.x,mouse.y-16); ctx.lineTo(mouse.x,mouse.y-11);
-  ctx.moveTo(mouse.x,mouse.y+11); ctx.lineTo(mouse.x,mouse.y+16);
-  ctx.stroke();
-  ctx.shadowBlur = 0;
-}
-
-function initState() {
-  const cityXs = [60, 190, 320, 480, 620, 780];
+function makeGame() {
   return {
     score: 0,
     wave: 1,
     totalWaves: 6,
     waveActive: false,
-    waveTimer: 0,
-    intermissionTimer: 0,
+    intermissionTimer: 2.5,
+    spawnQueue: null,
+    spawnTimer: 0,
     gameOver: false,
     victory: false,
 
-    cities: CITY_NAMES.map((name, i) => ({
-      name, x: cityXs[i], alive: true
-    })),
+    cities: CITY_NAMES.map((name,i) => ({name, x:CITY_XS[i], alive:true})),
 
     ship: {
-      x: W/2, y: H/2,
-      vx: 0, vy: 0,
-      angle: 0,
-      shootCooldown: 0,
-      lives: 3,
-      invincible: 0,
-      trail: []
+      x: W/2, y: H/2 - 60,
+      vx:0, vy:0,
+      angle:0,
+      fireCooldown:0,
+      lives:3,
+      invincible:0,
+      trail:[]
     },
 
-    interceptorAngle: -Math.PI/2, // pointing up
+    interceptorAngle: -Math.PI/2,
     interceptorAmmo: 10,
     interceptorCooldown: 0,
 
@@ -453,672 +135,310 @@ function initState() {
     enemyMissiles: [],
     asteroids: [],
     explosions: [],
-    stars: generateStars(),
+    stars: Array.from({length:130}, () => ({
+      x:Math.random()*W, y:Math.random()*(H-80),
+      r:Math.random()*1.2+0.3, b:Math.random()*0.6+0.4
+    })),
 
     bossActive: false,
     bossAsteroid: null,
     bossMissileTimer: 0,
 
-    spawnQueue: null,
-    spawnTimer: 0,
+    // Defender easter egg
+    defenderShip: null,
+    defenderLasers: [],
+    eggUnlocked: false,
+    eggBanner: null,
   };
 }
 
-// --- Defender Easter Egg ---
-function initDefenderShip() {
-  // Classic Defender ship starts off left edge, flies in
-  defenderShip = {
-    x: -120, y: 140,
-    vx: 220, vy: 0,
-    targetY: 140,
-    facingRight: true,
-    shootCooldown: 0,
-    trail: [],
-    wingman: false, // becomes true after entry sweep
-    sweepDone: false,
-    wobble: 0,
-  };
-  defenderEntryPhase = true;
-}
-
-function triggerDefenderEgg() {
-  if (eggUnlocked) return;
-  eggUnlocked = true;
-  eggBanner = { text: '👾 DEFENDER ACTIVATED 👾', age: 0, maxAge: 3.5 };
-  initDefenderShip();
-}
-
-// Defender lasers are long beam segments, separate from shipBullets
-// Each: { x1,y1,x2,y2, life, maxLife }
-let defenderLasers = [];
-
-function fireDefenderLaser(fromX, fromY, towardX, towardY, facingRight) {
-  // Classic Defender laser: long horizontal-ish beam stretching ~200-280px
-  // aimed at the target but elongated like the original game
-  const ang = Math.atan2(towardY - fromY, towardX - fromX);
-  const len = 220 + Math.random() * 60;
-  const ox = facingRight ? 62 : -62;
-  const x1 = fromX + ox;
-  const y1 = fromY;
-  const x2 = x1 + Math.cos(ang) * len;
-  const y2 = y1 + Math.sin(ang) * len;
-  defenderLasers.push({ x1, y1, x2, y2, life: 0.13, maxLife: 0.13,
-    hitX: x2, hitY: y2 });
-}
-
-function updateDefenderLasers(dt) {
-  // Check hits on enemies then age out
-  defenderLasers = defenderLasers.filter(l => {
-    // Segment vs enemies — check points along beam
-    const steps = 12;
-    for (let s = 0; s <= steps; s++) {
-      const t = s / steps;
-      const px = l.x1 + (l.x2 - l.x1) * t;
-      const py = l.y1 + (l.y2 - l.y1) * t;
-
-      // vs enemy missiles
-      state.enemyMissiles = state.enemyMissiles.filter(m => {
-        if (Math.hypot(px - m.x, py - m.y) < 10) {
-          addExplosion(m.x, m.y, 28, '#cf0');
-          state.score += 10; updateScore();
-          return false;
-        }
-        return true;
-      });
-
-      // vs asteroids
-      state.asteroids = state.asteroids.filter(a => {
-        if (Math.hypot(px - a.x, py - a.y) < a.size) {
-          a.hp--;
-          addExplosion(a.x, a.y, 20, '#cf0');
-          if (a.hp <= 0) {
-            addExplosion(a.x, a.y, a.size * 2, '#f40');
-            state.score += a.large ? 200 : 30; updateScore();
-            if (a.large) { state.bossActive = false; state.bossAsteroid = null; }
-            return false;
-          }
-          return true;
-        }
-        return true;
-      });
-    }
-    l.life -= dt;
-    return l.life > 0;
-  });
-}
-
-function drawDefenderLasers() {
-  defenderLasers.forEach(l => {
-    const pct = l.life / l.maxLife;
-    // Outer glow
-    ctx.globalAlpha = pct * 0.4;
-    ctx.strokeStyle = '#fff';
-    ctx.lineWidth = 6;
-    ctx.shadowColor = '#cf0';
-    ctx.shadowBlur = 0;
-    ctx.beginPath();
-    ctx.moveTo(l.x1, l.y1); ctx.lineTo(l.x2, l.y2);
-    ctx.stroke();
-    // Core beam
-    ctx.globalAlpha = pct;
-    ctx.strokeStyle = '#cf0';
-    ctx.lineWidth = 2.5;
-    ctx.shadowColor = '#cf0';
-    ctx.shadowBlur = 12;
-    ctx.beginPath();
-    ctx.moveTo(l.x1, l.y1); ctx.lineTo(l.x2, l.y2);
-    ctx.stroke();
-    // Bright core
-    ctx.strokeStyle = '#fff';
-    ctx.lineWidth = 0.8;
-    ctx.shadowBlur = 0;
-    ctx.beginPath();
-    ctx.moveTo(l.x1, l.y1); ctx.lineTo(l.x2, l.y2);
-    ctx.stroke();
-    ctx.globalAlpha = 1;
-    ctx.shadowBlur = 0;
-  });
-}
-
-function updateDefender(dt) {
-  if (!defenderShip) return;
-  const ds = defenderShip;
-  ds.wobble += dt * 3;
-  ds.trail.push({ x: ds.x, y: ds.y, age: 0 });
-  if (ds.trail.length > 18) ds.trail.shift();
-  ds.trail.forEach(t => t.age += dt);
-
-  updateDefenderLasers(dt);
-
-  if (!ds.wingman) {
-    // Entry sweep: fly across screen blasting with long lasers
-    ds.x += ds.vx * dt;
-    ds.y += (ds.targetY - ds.y) * 3 * dt;
-
-    ds.shootCooldown -= dt;
-    if (ds.shootCooldown <= 0) {
-      let best = null, bestD = 99999;
-      [...state.enemyMissiles, ...state.asteroids].forEach(e => {
-        const d = Math.hypot(e.x - ds.x, e.y - ds.y);
-        if (d < bestD) { bestD = d; best = e; }
-      });
-      if (best) {
-        fireDefenderLaser(ds.x, ds.y, best.x, best.y, ds.facingRight);
-        ds.shootCooldown = 0.11;
-      } else {
-        ds.shootCooldown = 0.15;
-      }
-
-      // Dip toward enemy clusters
-      const allEnemies = [...state.enemyMissiles, ...state.asteroids];
-      if (allEnemies.length) {
-        const avg = allEnemies.reduce((a,e) => ({y: a.y+e.y}), {y:0}).y / allEnemies.length;
-        ds.targetY = Math.max(60, Math.min(H - 100, avg - 20));
-      }
-    }
-
-    if (ds.x > W + 100) {
-      ds.wingman = true;
-      ds.x = state.ship.x - 50;
-      ds.y = state.ship.y + 22;
-      ds.vx = 0; ds.vy = 0;
-      defenderEntryPhase = false;
-    }
-  } else {
-    // Wingman: follow player, fire long lasers at threats
-    const s = state.ship;
-    ds.x += (s.x - 55 - ds.x) * 4 * dt;
-    ds.y += (s.y + 22 - ds.y) * 4 * dt;
-    ds.facingRight = (s.vx >= 0) || (mouse.x > ds.x);
-
-    ds.shootCooldown -= dt;
-    if (ds.shootCooldown <= 0) {
-      let best = null, bestD = 99999;
-      [...state.enemyMissiles, ...state.asteroids].forEach(e => {
-        const d = Math.hypot(e.x - ds.x, e.y - ds.y);
-        if (d < bestD) { bestD = d; best = e; }
-      });
-      if (best && bestD < 420) {
-        fireDefenderLaser(ds.x, ds.y, best.x, best.y, ds.facingRight);
-        ds.shootCooldown = 0.22;
-      } else ds.shootCooldown = 0.1;
-    }
-  }
-}
-
-function drawDefenderShip() {
-  if (!defenderShip) return;
-  const ds = defenderShip;
-  const flip = ds.facingRight ? 1 : -1;
-  const wobbleY = Math.sin(ds.wobble) * 1.5;
-
-  // Trail
-  ds.trail.forEach((t, i) => {
-    const a = (i / ds.trail.length) * 0.35;
-    ctx.fillStyle = `rgba(180,255,0,${a})`;
-    ctx.beginPath();
-    ctx.arc(t.x, t.y, 2.5, 0, Math.PI*2);
-    ctx.fill();
-  });
-
-  ctx.save();
-  ctx.translate(ds.x, ds.y + wobbleY);
-  ctx.scale(flip, 1);
-
-  // Classic Defender ship silhouette
-  // Main hull - long flat body
-  ctx.shadowColor = '#cf0';
-  ctx.shadowBlur = 18;
-  ctx.fillStyle = '#2a3800';
-  ctx.strokeStyle = '#cf0';
-  ctx.lineWidth = 1.5;
-
-  // Body
-  ctx.beginPath();
-  ctx.moveTo(-55, -8);
-  ctx.lineTo(55, -8);
-  ctx.lineTo(60, 0);
-  ctx.lineTo(55, 8);
-  ctx.lineTo(-55, 8);
-  ctx.lineTo(-60, 0);
-  ctx.closePath();
-  ctx.fill();
-  ctx.stroke();
-
-  // Cockpit bump top
-  ctx.fillStyle = '#3a5000';
-  ctx.strokeStyle = '#cf0';
-  ctx.beginPath();
-  ctx.ellipse(-5, -8, 20, 7, 0, Math.PI, 0);
-  ctx.fill();
-  ctx.stroke();
-
-  // Scanner dome top-right (iconic Defender detail)
-  ctx.fillStyle = '#1a2800';
-  ctx.strokeStyle = '#ff0';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.ellipse(30, -8, 10, 5, 0, Math.PI, 0);
-  ctx.fill();
-  ctx.stroke();
-
-  // Lander pod underneath (very Defender)
-  ctx.fillStyle = '#1a2200';
-  ctx.strokeStyle = '#8f0';
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.moveTo(-10, 8);
-  ctx.lineTo(10, 8);
-  ctx.lineTo(12, 20);
-  ctx.lineTo(-12, 20);
-  ctx.closePath();
-  ctx.fill();
-  ctx.stroke();
-
-  // Thruster nozzle left
-  ctx.fillStyle = '#f80';
-  ctx.shadowColor = '#f80';
-  ctx.shadowBlur = 12;
-  ctx.beginPath();
-  ctx.ellipse(-60, 0, 6, 4, 0, 0, Math.PI*2);
-  ctx.fill();
-
-  // Engine exhaust particles
-  ctx.shadowBlur = 0;
-
-  // Cockpit window
-  ctx.fillStyle = '#0ff4';
-  ctx.strokeStyle = '#0ff';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.ellipse(-5, -10, 8, 4, 0, Math.PI, 0);
-  ctx.fill();
-  ctx.stroke();
-
-  ctx.shadowBlur = 0;
-  ctx.restore();
-
-  // Label during entry
-  if (!ds.wingman) {
-    ctx.fillStyle = '#cf0';
-    ctx.font = 'bold 9px Orbitron';
-    ctx.textAlign = 'center';
-    ctx.shadowColor = '#cf0';
-    ctx.shadowBlur = 8;
-    ctx.fillText('DEFENDER', ds.x, ds.y + wobbleY - 28);
-    ctx.shadowBlur = 0;
-  }
-}
-
-function drawEggBanner() {
-  if (!eggBanner) return;
-  const pct = eggBanner.age / eggBanner.maxAge;
-  const alpha = pct < 0.2 ? pct/0.2 : pct > 0.75 ? 1-(pct-0.75)/0.25 : 1;
-  ctx.globalAlpha = alpha;
-  ctx.fillStyle = 'rgba(0,0,0,0.7)';
-  ctx.fillRect(0, H/2 - 45, W, 60);
-  ctx.font = 'bold 26px Orbitron';
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#cf0';
-  ctx.shadowColor = '#cf0';
-  ctx.shadowBlur = 30;
-  ctx.fillText(eggBanner.text, W/2, H/2 - 12);
-  ctx.font = '11px Share Tech Mono';
-  ctx.fillStyle = '#ff0';
-  ctx.shadowBlur = 0;
-  ctx.fillText('TYPE  D·E·F·E·N·D·E·R  DURING PLAY TO UNLOCK', W/2, H/2 + 12);
-  ctx.globalAlpha = 1;
-  ctx.shadowBlur = 0;
-}
-
-function generateStars() {
-  return Array.from({length: 120}, () => ({
-    x: Math.random()*W, y: Math.random()*(H-80),
-    r: Math.random()*1.2+0.3,
-    b: Math.random()*0.6+0.4
-  }));
-}
-
-// --- Wave config ---
+// ── wave config ────────────────────────────────────────
 function waveConfig(wave) {
-  if (wave === 6) {
-    // Boss wave
-    return { missiles: 20, asteroids: 4, boss: true, interval: 800, speed: 1.4 };
-  }
+  if (wave === 6) return {missiles:18, asteroids:4, boss:true,  interval:700,  speed:1.3};
   return {
-    missiles: 4 + wave * 3,
+    missiles:  4 + wave * 3,
     asteroids: Math.floor(wave / 2),
-    boss: false,
-    interval: Math.max(300, 1400 - wave * 150),
-    speed: 0.6 + wave * 0.15
+    boss:      false,
+    interval:  Math.max(400, 1500 - wave*160),
+    speed:     0.55 + wave*0.13
   };
 }
 
-// --- Spawn ---
-function spawnMissile(cfg) {
-  const alive = state.cities.filter(c => c.alive);
+// ── spawn helpers ──────────────────────────────────────
+function spawnEnemyMissile(cfg) {
+  const alive = G.cities.filter(c => c.alive);
   if (!alive.length) return;
   const target = alive[Math.floor(Math.random() * alive.length)];
-  const sx = Math.random() * W;
-  const sy = -10;
-  const dist = Math.hypot(target.x - sx, target.y - sy);
+  const sx = Math.random() * W, sy = -15;
+  const d  = Math.hypot(target.x - sx, target.y - sy);
   const spd = cfg.speed * (0.8 + Math.random()*0.4);
-  state.enemyMissiles.push({
+  G.enemyMissiles.push({
     x: sx, y: sy,
-    vx: (target.x - sx) / dist * spd * 60,
-    vy: (target.y - sy) / dist * spd * 60,
-    trail: [],
-    targetX: target.x, targetY: target.y
+    vx: (target.x - sx)/d * spd * 65,
+    vy: (target.y - sy)/d * spd * 65,
+    trail: []
   });
 }
 
-function spawnAsteroid(large = false) {
-  const side = Math.random() < 0.5 ? -1 : 1;
-  const size = large ? 55 : (18 + Math.random() * 20);
-  const spd = large ? 0.4 : (0.5 + Math.random() * 0.6);
-  const sx = side < 0 ? -size : W + size;
-  const sy = Math.random() * (H * 0.6);
-  const angle = Math.atan2(H/2 - sy, W/2 - sx) + (Math.random()-0.5)*0.5;
-  const verts = Array.from({length: 10}, (_, i) => {
-    const a = (i / 10) * Math.PI * 2;
-    const r = size * (0.75 + Math.random() * 0.35);
-    return { x: Math.cos(a)*r, y: Math.sin(a)*r };
+function makeAsteroidVerts(size) {
+  return Array.from({length:10}, (_,i) => {
+    const a = (i/10)*Math.PI*2;
+    const r = size*(0.7+Math.random()*0.4);
+    return {x:Math.cos(a)*r, y:Math.sin(a)*r};
   });
+}
+
+function spawnAsteroid() {
+  const side = Math.random()<0.5 ? -1 : 1;
+  const size = 18 + Math.random()*18;
+  const sx = side<0 ? -size-5 : W+size+5;
+  const sy = Math.random()*(H*0.55);
+  const ang = Math.atan2(H*0.6-sy, W/2-sx) + (Math.random()-0.5)*0.6;
   return {
-    x: sx, y: sy,
-    vx: Math.cos(angle) * spd * 60,
-    vy: Math.sin(angle) * spd * 60,
-    rot: 0, rotSpeed: (Math.random()-0.5)*0.03,
-    size, verts, hp: large ? 5 : 1,
-    large
+    x:sx, y:sy,
+    vx:Math.cos(ang)*(0.5+Math.random()*0.5)*60,
+    vy:Math.sin(ang)*(0.5+Math.random()*0.5)*60,
+    rot:0, rotSpeed:(Math.random()-0.5)*0.025,
+    size, verts:makeAsteroidVerts(size), hp:1, large:false
   };
 }
 
-// --- Main game loop ---
+function spawnBossAsteroid() {
+  const size = 55;
+  return {
+    x:W/2, y:-90,
+    vx:0, vy:22,
+    rot:0, rotSpeed:0.008,
+    size, verts:makeAsteroidVerts(size), hp:6, large:true
+  };
+}
+
+// ── main loop ──────────────────────────────────────────
 function loop(ts) {
-  const dt = Math.min((ts - lastTime) / 1000, 0.05);
+  const dt = Math.min((ts - lastTime)/1000, 0.05);
   lastTime = ts;
   update(dt);
   draw();
-  if (!state.gameOver && !state.victory) animId = requestAnimationFrame(loop);
-  else showEndScreen();
+  if (!G.gameOver && !G.victory) {
+    animId = requestAnimationFrame(loop);
+  } else {
+    showEndScreen();
+  }
 }
 
 function update(dt) {
-  if (!state.waveActive) {
-    state.intermissionTimer -= dt;
-    if (state.intermissionTimer <= 0) startWave();
+  if (!G.waveActive) {
+    G.intermissionTimer -= dt;
+    if (G.intermissionTimer <= 0) beginWave();
     return;
   }
-
   updateShip(dt);
   updateInterceptor(dt);
   pollGamepads(dt);
   updateProjectiles(dt);
   updateEnemies(dt);
-  updateExplosions(dt);
   updateWave(dt);
   updateDefender(dt);
-  if (eggBanner) { eggBanner.age += dt; if (eggBanner.age >= eggBanner.maxAge) eggBanner = null; }
+  if (G.eggBanner) { G.eggBanner.t += dt; if (G.eggBanner.t > G.eggBanner.max) G.eggBanner = null; }
+  updateExplosions(dt);
   checkCollisions();
-  checkCityDeaths();
-  checkGameEnd();
+  if (G.cities.every(c => !c.alive)) G.gameOver = true;
+  if (G.ship.lives <= 0) G.gameOver = true;
 }
 
-function updateShip(dt) {
-  const s = state.ship;
-  // Move toward mouse
-  const dx = mouse.x - s.x, dy = mouse.y - s.y;
-  const dist = Math.hypot(dx, dy);
-  const maxSpd = 280;
-  if (dist > 5) {
-    s.vx += (dx / dist) * 600 * dt;
-    s.vy += (dy / dist) * 600 * dt;
+// ── wave management ────────────────────────────────────
+function beginWave() {
+  const cfg = waveConfig(G.wave);
+  const q = [];
+  for (let i=0; i<cfg.missiles;  i++) q.push('m');
+  for (let i=0; i<cfg.asteroids; i++) q.push('a');
+  if (cfg.boss) q.push('boss');
+  // shuffle
+  for (let i=q.length-1; i>0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [q[i],q[j]] = [q[j],q[i]];
   }
-  const spd = Math.hypot(s.vx, s.vy);
-  if (spd > maxSpd) { s.vx = s.vx/spd*maxSpd; s.vy = s.vy/spd*maxSpd; }
-  s.vx *= 0.88; s.vy *= 0.88;
-  s.x += s.vx * dt; s.y += s.vy * dt;
-  s.x = Math.max(10, Math.min(W-10, s.x));
-  s.y = Math.max(10, Math.min(GROUND_Y - 60, s.y));
+  G.spawnQueue  = q;
+  G.spawnTimer  = 1.2; // first spawn after 1.2s
+  G.waveActive  = true;
+  document.getElementById('wave-display').textContent = `WAVE ${G.wave} / ${G.totalWaves}`;
+}
 
-  s.angle = Math.atan2(dy, dx);
-  s.trail.push({x: s.x, y: s.y, age: 0});
-  if (s.trail.length > 20) s.trail.shift();
-  s.trail.forEach(t => t.age += dt);
+function updateWave(dt) {
+  // Spawn next item from queue
+  if (G.spawnQueue.length > 0) {
+    G.spawnTimer -= dt;
+    if (G.spawnTimer <= 0) {
+      const cfg = waveConfig(G.wave);
+      const type = G.spawnQueue.shift();
+      if      (type === 'm')    spawnEnemyMissile(cfg);
+      else if (type === 'a')    G.asteroids.push(spawnAsteroid());
+      else if (type === 'boss') {
+        const ba = spawnBossAsteroid();
+        G.asteroids.push(ba);
+        G.bossAsteroid   = ba;
+        G.bossActive     = true;
+        G.bossMissileTimer = 2.5;
+      }
+      G.spawnTimer = cfg.interval / 1000;
+    }
+  }
 
-  if (s.invincible > 0) s.invincible -= dt;
+  // Boss fires extra missiles
+  if (G.bossActive && G.bossAsteroid) {
+    G.bossMissileTimer -= dt;
+    if (G.bossMissileTimer <= 0) {
+      const ba = G.bossAsteroid;
+      const alive = G.cities.filter(c=>c.alive);
+      if (alive.length) {
+        const t = alive[Math.floor(Math.random()*alive.length)];
+        const d = Math.hypot(t.x-ba.x, t.y-ba.y);
+        G.enemyMissiles.push({x:ba.x,y:ba.y,vx:(t.x-ba.x)/d*85,vy:(t.y-ba.y)/d*85,trail:[]});
+      }
+      G.bossMissileTimer = 1.4;
+    }
+  }
 
-  // Auto-fire toward nearest threat
-  s.shootCooldown -= dt;
-  if (s.shootCooldown <= 0) {
-    // Find nearest enemy
-    let best = null, bestDist = 99999;
-    [...state.enemyMissiles, ...state.asteroids].forEach(e => {
-      const d = Math.hypot(e.x - s.x, e.y - s.y);
-      if (d < bestDist) { bestDist = d; best = e; }
-    });
-    if (best && bestDist < 350) {
-      fireShipBullet(s.x, s.y, Math.atan2(best.y - s.y, best.x - s.x));
-      s.shootCooldown = 0.12;
+  // Clear wave when queue empty and screen clear
+  if (G.spawnQueue.length === 0 && G.enemyMissiles.length === 0 && G.asteroids.length === 0) {
+    G.waveActive  = false;
+    G.bossActive  = false;
+    G.bossAsteroid = null;
+    if (G.wave >= G.totalWaves) {
+      G.victory = true;
     } else {
-      s.shootCooldown = 0.06;
+      G.wave++;
+      G.intermissionTimer = 3.5;
+      G.interceptorAmmo = Math.min(G.interceptorAmmo + 5, 15);
+      document.getElementById('missile-ammo').textContent = G.interceptorAmmo;
     }
   }
 }
 
-function fireShipBullet(x, y, angle) {
-  const spd = 480;
-  state.shipBullets.push({
-    x, y,
-    vx: Math.cos(angle) * spd,
-    vy: Math.sin(angle) * spd,
-    life: 1.2
-  });
+// ── ship ───────────────────────────────────────────────
+function updateShip(dt) {
+  const s = G.ship;
+  const dx = mouse.x - s.x, dy = mouse.y - s.y;
+  const dist = Math.hypot(dx, dy);
+  if (dist > 6) {
+    s.vx += (dx/dist)*550*dt;
+    s.vy += (dy/dist)*550*dt;
+  }
+  const spd = Math.hypot(s.vx, s.vy);
+  if (spd > 270) { s.vx=s.vx/spd*270; s.vy=s.vy/spd*270; }
+  s.vx *= 0.87; s.vy *= 0.87;
+  s.x = Math.max(12, Math.min(W-12, s.x + s.vx*dt));
+  s.y = Math.max(12, Math.min(GROUND_Y-65, s.y + s.vy*dt));
+  s.angle = Math.atan2(dy, dx);
+  s.trail.push({x:s.x, y:s.y, age:0});
+  if (s.trail.length > 22) s.trail.shift();
+  s.trail.forEach(t => t.age += dt);
+  if (s.invincible > 0) s.invincible -= dt;
+
+  s.fireCooldown -= dt;
+  if (mouseHeld && s.fireCooldown <= 0) {
+    const ang = Math.atan2(mouse.y - s.y, mouse.x - s.x);
+    G.shipBullets.push({x:s.x, y:s.y, vx:Math.cos(ang)*500, vy:Math.sin(ang)*500, life:1.3});
+    s.fireCooldown = 0.13;
+  }
 }
 
+// ── interceptor ────────────────────────────────────────
 function updateInterceptor(dt) {
-  if (keys['a'] || keys['A']) state.interceptorAngle -= 1.8 * dt;
-  if (keys['d'] || keys['D']) state.interceptorAngle += 1.8 * dt;
-  state.interceptorAngle = Math.max(-Math.PI, Math.min(0, state.interceptorAngle));
-
-  state.interceptorCooldown -= dt;
-  if (keys[' '] && state.interceptorCooldown <= 0 && state.interceptorAmmo > 0) {
-    triggerInterceptorFire();
+  if (keys['a'] || keys['A']) G.interceptorAngle -= 1.8*dt;
+  if (keys['d'] || keys['D']) G.interceptorAngle += 1.8*dt;
+  G.interceptorAngle = Math.max(-Math.PI, Math.min(0, G.interceptorAngle));
+  G.interceptorCooldown -= dt;
+  if (keys[' '] && G.interceptorCooldown <= 0 && G.interceptorAmmo > 0) {
+    G.interceptorMissiles.push({
+      x:BASE_X, y:BASE_Y,
+      vx:Math.cos(G.interceptorAngle)*390,
+      vy:Math.sin(G.interceptorAngle)*390,
+      trail:[], life:2.6
+    });
+    G.interceptorAmmo--;
+    document.getElementById('missile-ammo').textContent = G.interceptorAmmo;
+    G.interceptorCooldown = 0.42;
     keys[' '] = false;
   }
 }
 
+// ── projectiles ────────────────────────────────────────
 function updateProjectiles(dt) {
-  // Ship bullets
-  state.shipBullets = state.shipBullets.filter(b => {
-    b.x += b.vx * dt; b.y += b.vy * dt; b.life -= dt;
-    return b.life > 0 && b.x > 0 && b.x < W && b.y > 0 && b.y < H;
+  G.shipBullets = G.shipBullets.filter(b => {
+    b.x += b.vx*dt; b.y += b.vy*dt; b.life -= dt;
+    return b.life>0 && b.x>-10 && b.x<W+10 && b.y>-10 && b.y<H+10;
   });
-
-  // Interceptor missiles
-  state.interceptorMissiles = state.interceptorMissiles.filter(m => {
-    m.x += m.vx * dt; m.y += m.vy * dt; m.life -= dt;
-    m.trail.push({x: m.x, y: m.y, age: 0});
-    if (m.trail.length > 12) m.trail.shift();
-    m.trail.forEach(t => t.age += dt);
-    return m.life > 0 && m.x > -50 && m.x < W+50 && m.y > -100 && m.y < H+50;
+  G.interceptorMissiles = G.interceptorMissiles.filter(m => {
+    m.x += m.vx*dt; m.y += m.vy*dt; m.life -= dt;
+    m.trail.push({x:m.x,y:m.y,age:0});
+    if (m.trail.length>14) m.trail.shift();
+    m.trail.forEach(t=>t.age+=dt);
+    return m.life>0;
   });
 }
 
+// ── enemies ────────────────────────────────────────────
 function updateEnemies(dt) {
-  // Enemy missiles
-  state.enemyMissiles.forEach(m => {
-    m.x += m.vx * dt; m.y += m.vy * dt;
-    m.trail.push({x: m.x, y: m.y, age: 0});
-    if (m.trail.length > 16) m.trail.shift();
-    m.trail.forEach(t => t.age += dt);
+  G.enemyMissiles.forEach(m => {
+    m.x += m.vx*dt; m.y += m.vy*dt;
+    m.trail.push({x:m.x,y:m.y,age:0});
+    if (m.trail.length>18) m.trail.shift();
+    m.trail.forEach(t=>t.age+=dt);
   });
-
-  // Asteroids
-  state.asteroids.forEach(a => {
-    a.x += a.vx * dt; a.y += a.vy * dt;
+  G.asteroids.forEach(a => {
+    a.x += a.vx*dt; a.y += a.vy*dt;
     a.rot += a.rotSpeed;
   });
-  // Remove off-screen non-boss
-  state.asteroids = state.asteroids.filter(a => {
-    if (a.large) return true;
-    return !(a.x < -100 || a.x > W+100 || a.y > H+100);
-  });
-
-  // Boss missile spawner
-  if (state.bossActive && state.bossAsteroid) {
-    state.bossMissileTimer -= dt;
-    if (state.bossMissileTimer <= 0) {
-      const ba = state.bossAsteroid;
-      const cfg = waveConfig(6);
-      // spawn missile from boss
-      const alive = state.cities.filter(c => c.alive);
-      if (alive.length) {
-        const target = alive[Math.floor(Math.random()*alive.length)];
-        const dist = Math.hypot(target.x - ba.x, target.y - ba.y);
-        state.enemyMissiles.push({
-          x: ba.x, y: ba.y,
-          vx: (target.x - ba.x)/dist * 90,
-          vy: (target.y - ba.y)/dist * 90,
-          trail: [], targetX: target.x, targetY: target.y
-        });
-      }
-      state.bossMissileTimer = 1.2;
-    }
-  }
+  G.asteroids = G.asteroids.filter(a => a.large || !(a.x<-120||a.x>W+120||a.y>H+80));
 }
 
 function updateExplosions(dt) {
-  state.explosions = state.explosions.filter(e => {
-    e.age += dt; e.radius += e.speed * dt;
-    return e.age < e.maxAge;
+  G.explosions = G.explosions.filter(e => {
+    e.age+=dt; e.r+=e.spd*dt;
+    return e.age < e.max;
   });
 }
 
-function updateWave(dt) {
-  const cfg = waveConfig(state.wave);
-
-  // Build spawn queue on first tick of wave
-  if (!state.spawnQueue) {
-    const queue = [];
-    for (let i = 0; i < cfg.missiles; i++) queue.push('missile');
-    for (let i = 0; i < cfg.asteroids; i++) queue.push('asteroid');
-    // Shuffle
-    for (let i = queue.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [queue[i], queue[j]] = [queue[j], queue[i]];
-    }
-    if (cfg.boss) queue.push('boss');
-    state.spawnQueue = queue;
-    state.spawnTimer = 1.0; // 1 second before first spawn
-  }
-
-  // Tick spawn timer
-  if (state.spawnQueue.length > 0) {
-    state.spawnTimer -= dt;
-    if (state.spawnTimer <= 0) {
-      const type = state.spawnQueue.shift();
-      if (type === 'missile') {
-        spawnMissile(cfg);
-      } else if (type === 'asteroid') {
-        state.asteroids.push(spawnAsteroid(false));
-      } else if (type === 'boss' && !state.bossAsteroid) {
-        const ba = spawnAsteroid(true);
-        ba.x = W/2; ba.y = -80; ba.vx = 0; ba.vy = 25;
-        state.asteroids.push(ba);
-        state.bossAsteroid = ba;
-        state.bossActive = true;
-        state.bossMissileTimer = 2;
-      }
-      state.spawnTimer = cfg.interval / 1000;
-    }
-  }
-
-  // Wave clear: queue empty and all enemies gone
-  if (state.spawnQueue && state.spawnQueue.length === 0
-      && state.enemyMissiles.length === 0
-      && state.asteroids.length === 0) {
-    state.spawnQueue = null;
-    state.waveActive = false;
-    if (state.wave >= state.totalWaves) {
-      state.victory = true;
-    } else {
-      state.wave++;
-      document.getElementById('wave-display').textContent = `WAVE ${state.wave} / ${state.totalWaves}`;
-      state.intermissionTimer = 3;
-      state.interceptorAmmo = Math.min(state.interceptorAmmo + 5, 15);
-      document.getElementById('missile-ammo').textContent = state.interceptorAmmo;
-    }
-    state.bossActive = false;
-    state.bossAsteroid = null;
-  }
+function boom(x,y,size,color) {
+  G.explosions.push({x,y,r:4,spd:size*4,max:0.55,age:0,color});
 }
 
+// ── collisions ─────────────────────────────────────────
 function checkCollisions() {
-  const bullets = state.shipBullets;
-  const imissiles = state.interceptorMissiles;
+  const B = G.shipBullets;
+  const IM = G.interceptorMissiles;
 
-  // Ship bullets vs enemy missiles
-  state.enemyMissiles = state.enemyMissiles.filter(m => {
-    for (let i = bullets.length-1; i >= 0; i--) {
-      if (Math.hypot(bullets[i].x - m.x, bullets[i].y - m.y) < 10) {
-        bullets.splice(i, 1);
-        addExplosion(m.x, m.y, 30, '#f80');
-        state.score += 10;
-        updateScore();
-        return false;
+  // Ship bullets hit enemy missiles
+  G.enemyMissiles = G.enemyMissiles.filter(m => {
+    for (let i=B.length-1; i>=0; i--) {
+      if (Math.hypot(B[i].x-m.x, B[i].y-m.y) < 12) {
+        B.splice(i,1); boom(m.x,m.y,28,'#f80'); addScore(10); return false;
       }
     }
     return true;
   });
 
-  // Interceptor missiles vs enemy missiles
-  state.enemyMissiles = state.enemyMissiles.filter(m => {
-    for (let i = imissiles.length-1; i >= 0; i--) {
-      if (Math.hypot(imissiles[i].x - m.x, imissiles[i].y - m.y) < 22) {
-        addExplosion(imissiles[i].x, imissiles[i].y, 50, '#ff0');
-        imissiles.splice(i, 1);
-        state.score += 15;
-        updateScore();
-        return false;
+  // Interceptor missiles hit enemy missiles
+  G.enemyMissiles = G.enemyMissiles.filter(m => {
+    for (let i=IM.length-1; i>=0; i--) {
+      if (Math.hypot(IM[i].x-m.x, IM[i].y-m.y) < 24) {
+        boom(IM[i].x,IM[i].y,50,'#ff0'); IM.splice(i,1); addScore(15); return false;
       }
     }
     return true;
   });
 
-  // Bullets vs asteroids
-  state.asteroids = state.asteroids.filter(a => {
-    for (let i = bullets.length-1; i >= 0; i--) {
-      if (Math.hypot(bullets[i].x - a.x, bullets[i].y - a.y) < a.size) {
-        bullets.splice(i, 1);
-        a.hp--;
-        if (a.hp <= 0) {
-          addExplosion(a.x, a.y, a.size * 2, '#f40');
-          state.score += a.large ? 200 : 30;
-          updateScore();
-          if (a.large) { state.bossActive = false; state.bossAsteroid = null; }
-          return false;
-        }
-        addExplosion(a.x, a.y, 15, '#f84');
-        return true;
-      }
-    }
-    return true;
-  });
-
-  // Interceptor vs asteroids
-  state.asteroids = state.asteroids.filter(a => {
-    for (let i = imissiles.length-1; i >= 0; i--) {
-      if (Math.hypot(imissiles[i].x - a.x, imissiles[i].y - a.y) < a.size + 10) {
-        addExplosion(imissiles[i].x, imissiles[i].y, 60, '#ff0');
-        imissiles.splice(i, 1);
-        a.hp -= 2;
-        if (a.hp <= 0) {
-          addExplosion(a.x, a.y, a.size*2.5, '#f40');
-          state.score += a.large ? 300 : 40;
-          updateScore();
-          if (a.large) { state.bossActive = false; state.bossAsteroid = null; }
+  // Bullets hit asteroids
+  G.asteroids = G.asteroids.filter(a => {
+    for (let i=B.length-1; i>=0; i--) {
+      if (Math.hypot(B[i].x-a.x, B[i].y-a.y) < a.size) {
+        B.splice(i,1); a.hp--;
+        boom(a.x,a.y,16,'#f84');
+        if (a.hp<=0) {
+          boom(a.x,a.y,a.size*2,'#f40');
+          addScore(a.large?200:30);
+          if (a.large){G.bossActive=false;G.bossAsteroid=null;}
           return false;
         }
         return true;
@@ -1127,467 +447,465 @@ function checkCollisions() {
     return true;
   });
 
-  // Enemy missiles vs ship
-  if (state.ship.invincible <= 0) {
-    const s = state.ship;
-    state.enemyMissiles = state.enemyMissiles.filter(m => {
-      if (Math.hypot(m.x - s.x, m.y - s.y) < 18) {
-        addExplosion(s.x, s.y, 50, '#f00');
-        s.lives--;
-        s.invincible = 2.5;
+  // Interceptor missiles hit asteroids
+  G.asteroids = G.asteroids.filter(a => {
+    for (let i=IM.length-1; i>=0; i--) {
+      if (Math.hypot(IM[i].x-a.x, IM[i].y-a.y) < a.size+10) {
+        boom(IM[i].x,IM[i].y,55,'#ff0'); IM.splice(i,1); a.hp-=2;
+        if (a.hp<=0) {
+          boom(a.x,a.y,a.size*2.5,'#f40');
+          addScore(a.large?300:45);
+          if (a.large){G.bossActive=false;G.bossAsteroid=null;}
+          return false;
+        }
+        return true;
+      }
+    }
+    return true;
+  });
+
+  // Enemy missiles hit ship
+  const s = G.ship;
+  if (s.invincible<=0) {
+    G.enemyMissiles = G.enemyMissiles.filter(m => {
+      if (Math.hypot(m.x-s.x, m.y-s.y) < 16) {
+        boom(s.x,s.y,45,'#f00'); s.lives--; s.invincible=2.5;
         document.getElementById('ship-lives').textContent = s.lives;
-        if (s.lives <= 0) state.gameOver = true;
         return false;
       }
       return true;
     });
   }
 
-  // Enemy missiles hit ground / cities
-  state.enemyMissiles = state.enemyMissiles.filter(m => {
-    if (m.y >= GROUND_Y - 20) {
-      addExplosion(m.x, GROUND_Y - 10, 45, '#f80');
-      // Kill nearby city
-      state.cities.forEach(c => {
-        if (c.alive && Math.abs(c.x - m.x) < 40) c.alive = false;
-      });
+  // Enemy missiles hit ground/cities
+  G.enemyMissiles = G.enemyMissiles.filter(m => {
+    if (m.y >= GROUND_Y-18) {
+      boom(m.x,GROUND_Y-10,40,'#f80');
+      G.cities.forEach(c => { if(c.alive && Math.abs(c.x-m.x)<42) c.alive=false; });
       return false;
     }
     return true;
   });
 
-  // Asteroids hit ground / cities
-  state.asteroids = state.asteroids.filter(a => {
-    if (a.y + a.size >= GROUND_Y - 10) {
-      addExplosion(a.x, GROUND_Y - 10, 80, '#f40');
-      state.cities.forEach(c => {
-        if (c.alive && Math.abs(c.x - a.x) < a.size + 30) c.alive = false;
-      });
-      if (a.large) { state.bossActive = false; state.bossAsteroid = null; }
+  // Asteroids hit ground/cities
+  G.asteroids = G.asteroids.filter(a => {
+    if (a.y+a.size >= GROUND_Y-8) {
+      boom(a.x,GROUND_Y-10,75,'#f40');
+      G.cities.forEach(c => { if(c.alive && Math.abs(c.x-a.x)<a.size+32) c.alive=false; });
+      if (a.large){G.bossActive=false;G.bossAsteroid=null;}
       return false;
     }
     return true;
   });
 }
 
-function checkCityDeaths() {
-  if (state.cities.every(c => !c.alive)) state.gameOver = true;
+function addScore(n) {
+  G.score += n;
+  document.getElementById('score-display').textContent = `SCORE: ${G.score}`;
 }
 
-function checkGameEnd() {
-  if (state.ship.lives <= 0) state.gameOver = true;
+// ── gamepad ────────────────────────────────────────────
+let gp1Prev=false, gp2Prev=false;
+const GP={A:0,B:1,X:2,Y:3,LB:4,RB:5,LT:6,RT:7,SEL:8,STA:9,DPAD_L:14,DPAD_R:15};
+function dz(v){return Math.abs(v)<0.15?0:v;}
+
+function getPads() {
+  try { const r=navigator.getGamepads?navigator.getGamepads():[];const o=[];for(let i=0;i<r.length;i++)if(r[i]&&r[i].connected)o.push(r[i]);return o; }
+  catch(e){return[];}
+}
+try{window.addEventListener('gamepadconnected',updateGPHUD);window.addEventListener('gamepaddisconnected',updateGPHUD);}catch(e){}
+
+function updateGPHUD(){
+  const el=document.getElementById('gp-status'); if(!el)return;
+  const p=getPads();
+  if(!p.length){el.textContent='🎮 No controller detected';el.style.color='#f004';}
+  else if(p.length===1){el.textContent='🎮 1 controller: L-stick+LT = ship | R-stick+RT = interceptor';el.style.color='#cf0a';}
+  else{el.textContent=`🎮 2 controllers ready`;el.style.color='#0ffa';}
 }
 
-function addExplosion(x, y, radius, color) {
-  state.explosions.push({ x, y, radius: 5, speed: radius * 4, maxAge: 0.5, age: 0, color, maxR: radius });
+function pollGamepads(dt){
+  if(!G||!G.waveActive) return;
+  const pads=getPads(); if(!pads.length) return;
+  const s=G.ship;
+  if(pads.length>=2){
+    const p1=pads[0],p2=pads[1];
+    const lx=dz(p1.axes[0]),ly=dz(p1.axes[1]);
+    if(Math.hypot(lx,ly)>0.1){mouse.x=Math.max(12,Math.min(W-12,mouse.x+lx*300*dt));mouse.y=Math.max(12,Math.min(GROUND_Y-65,mouse.y+ly*300*dt));}
+    const f1=p1.buttons[GP.RT].value>0.5||p1.buttons[GP.A].pressed;
+    if(f1&&!gp1Prev&&s.fireCooldown<=0){G.shipBullets.push({x:s.x,y:s.y,vx:Math.cos(s.angle)*500,vy:Math.sin(s.angle)*500,life:1.3});s.fireCooldown=0.13;}
+    gp1Prev=f1;
+    const lx2=dz(p2.axes[0]),ly2=dz(p2.axes[1]);
+    if(Math.hypot(lx2,ly2)>0.15){let a=Math.atan2(ly2,lx2);G.interceptorAngle=Math.max(-Math.PI,Math.min(0,a));}
+    const f2=p2.buttons[GP.RB].pressed||p2.buttons[GP.A].pressed||p2.buttons[GP.RT].value>0.5;
+    if(f2&&!gp2Prev)fireInterceptor();
+    gp2Prev=f2;
+    if(p1.buttons[GP.STA].pressed&&p1.buttons[GP.SEL].pressed)unlockDefender();
+  } else {
+    const p=pads[0];
+    const lx=dz(p.axes[0]),ly=dz(p.axes[1]),rx=dz(p.axes[2]),ry=dz(p.axes[3]);
+    if(Math.hypot(lx,ly)>0.1){mouse.x=Math.max(12,Math.min(W-12,mouse.x+lx*300*dt));mouse.y=Math.max(12,Math.min(GROUND_Y-65,mouse.y+ly*300*dt));}
+    const f1=p.buttons[GP.LT].value>0.5||p.buttons[GP.A].pressed;
+    if(f1&&!gp1Prev&&s.fireCooldown<=0){G.shipBullets.push({x:s.x,y:s.y,vx:Math.cos(s.angle)*500,vy:Math.sin(s.angle)*500,life:1.3});s.fireCooldown=0.13;}
+    gp1Prev=f1;
+    if(Math.hypot(rx,ry)>0.15){let a=Math.atan2(ry,rx);G.interceptorAngle=Math.max(-Math.PI,Math.min(0,a));}
+    if(p.buttons[GP.DPAD_L].pressed)G.interceptorAngle=Math.max(-Math.PI,G.interceptorAngle-1.8*dt);
+    if(p.buttons[GP.DPAD_R].pressed)G.interceptorAngle=Math.min(0,G.interceptorAngle+1.8*dt);
+    const f2=p.buttons[GP.RT].value>0.5||p.buttons[GP.RB].pressed;
+    if(f2&&!gp2Prev)fireInterceptor();
+    gp2Prev=f2;
+    if(p.buttons[9].pressed&&p.buttons[4].pressed)unlockDefender();
+  }
 }
 
-function updateScore() {
-  document.getElementById('score-display').textContent = `SCORE: ${state.score}`;
+function fireInterceptor(){
+  if(G.interceptorCooldown>0||G.interceptorAmmo<=0)return;
+  G.interceptorMissiles.push({x:BASE_X,y:BASE_Y,vx:Math.cos(G.interceptorAngle)*390,vy:Math.sin(G.interceptorAngle)*390,trail:[],life:2.6});
+  G.interceptorAmmo--;
+  document.getElementById('missile-ammo').textContent=G.interceptorAmmo;
+  G.interceptorCooldown=0.42;
 }
 
-function startWave() {
-  state.waveActive = true;
-  state.spawnQueue = null; // will be built on first tick of updateWave
-  state.spawnTimer = 0;
+// ── easter egg: DEFENDER ───────────────────────────────
+const EGG_CODE = 'DEFENDER';
+let eggBuf = '';
+
+function checkEasterEgg(key) {
+  if (!G || !G.waveActive || G.eggUnlocked) return;
+  const ch = key.toUpperCase();
+  if (ch.length===1) {
+    if (EGG_CODE[eggBuf.length]===ch) {
+      eggBuf += ch;
+      if (eggBuf===EGG_CODE) { unlockDefender(); eggBuf=''; }
+    } else {
+      eggBuf = EGG_CODE[0]===ch ? ch : '';
+    }
+  }
 }
 
-// --- Drawing ---
-function draw() {
-  ctx.fillStyle = '#000008';
-  ctx.fillRect(0, 0, W, H);
+function unlockDefender(){
+  if(!G||G.eggUnlocked)return;
+  G.eggUnlocked=true;
+  G.eggBanner={t:0,max:3.5};
+  G.defenderShip={
+    x:-130,y:130,vx:230,vy:0,targetY:130,
+    facingRight:true,fireCooldown:0,
+    trail:[],wingman:false,wobble:0
+  };
+}
 
+function updateDefender(dt){
+  if(!G.defenderShip)return;
+  const ds=G.defenderShip;
+  ds.wobble+=dt*3;
+  ds.trail.push({x:ds.x,y:ds.y,age:0});
+  if(ds.trail.length>20)ds.trail.shift();
+  ds.trail.forEach(t=>t.age+=dt);
+
+  // Update lasers
+  G.defenderLasers=G.defenderLasers.filter(l=>{
+    l.life-=dt;
+    if(l.life>0){
+      for(let s=0;s<=10;s++){
+        const t=s/10,px=l.x1+(l.x2-l.x1)*t,py=l.y1+(l.y2-l.y1)*t;
+        G.enemyMissiles=G.enemyMissiles.filter(m=>{
+          if(Math.hypot(px-m.x,py-m.y)<11){boom(m.x,m.y,25,'#cf0');addScore(10);return false;}return true;
+        });
+        G.asteroids=G.asteroids.filter(a=>{
+          if(Math.hypot(px-a.x,py-a.y)<a.size){
+            a.hp--;boom(a.x,a.y,18,'#cf0');
+            if(a.hp<=0){boom(a.x,a.y,a.size*2,'#f40');addScore(a.large?200:30);if(a.large){G.bossActive=false;G.bossAsteroid=null;}return false;}
+            return true;
+          }return true;
+        });
+      }
+    }
+    return l.life>0;
+  });
+
+  ds.fireCooldown-=dt;
+  const range=ds.wingman?200:9999;
+  let best=null,bestD=range;
+  [...G.enemyMissiles,...G.asteroids].forEach(e=>{const d=Math.hypot(e.x-ds.x,e.y-ds.y);if(d<bestD){bestD=d;best=e;}});
+  if(best&&ds.fireCooldown<=0){
+    const ang=Math.atan2(best.y-ds.y,best.x-ds.x);
+    const len=230+Math.random()*55;
+    const ox=ds.facingRight?62:-62;
+    G.defenderLasers.push({x1:ds.x+ox,y1:ds.y,x2:ds.x+ox+Math.cos(ang)*len,y2:ds.y+Math.sin(ang)*len,life:0.12,maxLife:0.12});
+    ds.fireCooldown=ds.wingman?0.22:0.1;
+  }
+
+  if(!ds.wingman){
+    ds.x+=ds.vx*dt;
+    ds.y+=(ds.targetY-ds.y)*3*dt;
+    if(G.enemyMissiles.length||G.asteroids.length){
+      const all=[...G.enemyMissiles,...G.asteroids];
+      const avgY=all.reduce((s,e)=>s+e.y,0)/all.length;
+      ds.targetY=Math.max(55,Math.min(H-110,avgY-25));
+    }
+    if(ds.x>W+110){
+      ds.wingman=true;ds.x=G.ship.x-55;ds.y=G.ship.y+22;ds.vx=0;
+    }
+  } else {
+    ds.x+=(G.ship.x-55-ds.x)*4*dt;
+    ds.y+=(G.ship.y+22-ds.y)*4*dt;
+    ds.facingRight=G.ship.vx>=0||mouse.x>ds.x;
+  }
+}
+
+// ── draw ───────────────────────────────────────────────
+function draw(){
+  ctx.fillStyle='#000008';
+  ctx.fillRect(0,0,W,H);
   drawStars();
   drawGround();
   drawCities();
   drawEnemyMissiles();
   drawAsteroids();
+  drawExplosions();
   drawShip();
   drawInterceptorBase();
-  drawShipBullets();
+  drawBullets();
   drawInterceptorMissiles();
-  drawExplosions();
-  drawAimLine();
   drawDefenderShip();
   drawDefenderLasers();
-  drawEggBanner();
-  drawGamepadCursor();
-  drawCustomCursor();
-
-  if (!state.waveActive && !state.gameOver && !state.victory) {
-    drawIntermission();
-  }
+  drawAimLine();
+  if(G.eggBanner)drawEggBanner();
+  if(!G.waveActive&&!G.gameOver&&!G.victory)drawIntermission();
+  drawCursor();
 }
 
-function drawStars() {
-  state.stars.forEach(s => {
-    ctx.globalAlpha = s.b * (0.7 + 0.3 * Math.sin(Date.now()*0.001 + s.x));
-    ctx.fillStyle = '#fff';
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
-    ctx.fill();
-  });
-  ctx.globalAlpha = 1;
+function drawStars(){
+  G.stars.forEach(s=>{
+    ctx.globalAlpha=s.b*(0.6+0.4*Math.sin(Date.now()*0.001+s.x));
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();
+  });ctx.globalAlpha=1;
 }
 
-function drawGround() {
-  // Ground line
-  ctx.strokeStyle = '#0f04';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(0, GROUND_Y); ctx.lineTo(W, GROUND_Y);
-  ctx.stroke();
-
-  // Ground glow
-  const grd = ctx.createLinearGradient(0, GROUND_Y, 0, H);
-  grd.addColorStop(0, '#0f0a');
-  grd.addColorStop(1, '#000');
-  ctx.fillStyle = grd;
-  ctx.fillRect(0, GROUND_Y, W, H - GROUND_Y);
+function drawGround(){
+  ctx.strokeStyle='#0f05';ctx.lineWidth=1;
+  ctx.beginPath();ctx.moveTo(0,GROUND_Y);ctx.lineTo(W,GROUND_Y);ctx.stroke();
+  const g=ctx.createLinearGradient(0,GROUND_Y,0,H);
+  g.addColorStop(0,'#0f0b');g.addColorStop(1,'#000');
+  ctx.fillStyle=g;ctx.fillRect(0,GROUND_Y,W,H-GROUND_Y);
 }
 
-function drawCities() {
-  state.cities.forEach(c => {
-    if (!c.alive) {
-      // Rubble
-      ctx.fillStyle = '#333';
-      ctx.fillRect(c.x - 15, GROUND_Y - 8, 30, 8);
-      ctx.fillStyle = '#555';
-      ctx.font = '9px Share Tech Mono';
-      ctx.textAlign = 'center';
-      ctx.fillText('✕ ' + c.name, c.x, GROUND_Y - 12);
+function drawCities(){
+  G.cities.forEach(c=>{
+    if(!c.alive){
+      ctx.fillStyle='#444';ctx.fillRect(c.x-18,GROUND_Y-7,36,7);
+      ctx.fillStyle='#666';ctx.font='8px Share Tech Mono';ctx.textAlign='center';
+      ctx.fillText('✕'+c.name,c.x,GROUND_Y-10);
       return;
     }
-    // City silhouette
-    ctx.fillStyle = '#0ff';
-    ctx.shadowColor = '#0ff';
-    ctx.shadowBlur = 8;
-
-    // Buildings
-    const blds = [
-      {w:8, h:30}, {w:12, h:22}, {w:7, h:35}, {w:10, h:18}, {w:6, h:26}
-    ];
-    let bx = c.x - 20;
-    blds.forEach(b => {
-      ctx.fillRect(bx, GROUND_Y - b.h, b.w, b.h);
-      bx += b.w + 2;
-    });
-
-    ctx.shadowBlur = 0;
-    ctx.fillStyle = '#0ffc';
-    ctx.font = '9px Share Tech Mono';
-    ctx.textAlign = 'center';
-    ctx.fillText(c.name, c.x, GROUND_Y + 8);
+    ctx.shadowColor='#0ff';ctx.shadowBlur=8;ctx.fillStyle='#0ff';
+    const blds=[{w:7,h:28},{w:11,h:20},{w:6,h:33},{w:9,h:17},{w:7,h:24}];
+    let bx=c.x-20;
+    blds.forEach(b=>{ctx.fillRect(bx,GROUND_Y-b.h,b.w,b.h);bx+=b.w+2;});
+    ctx.shadowBlur=0;ctx.fillStyle='#0ffc';ctx.font='9px Share Tech Mono';ctx.textAlign='center';
+    ctx.fillText(c.name,c.x,GROUND_Y+9);
   });
 }
 
-function drawEnemyMissiles() {
-  state.enemyMissiles.forEach(m => {
-    // Trail
-    ctx.lineWidth = 1;
-    m.trail.forEach((t, i) => {
-      if (i === 0) return;
-      ctx.strokeStyle = `rgba(255,80,0,${0.3 * (i/m.trail.length)})`;
-      ctx.beginPath();
-      ctx.moveTo(m.trail[i-1].x, m.trail[i-1].y);
-      ctx.lineTo(t.x, t.y);
-      ctx.stroke();
+function drawEnemyMissiles(){
+  G.enemyMissiles.forEach(m=>{
+    ctx.lineWidth=1;
+    m.trail.forEach((t,i)=>{
+      if(!i)return;
+      ctx.strokeStyle=`rgba(255,80,0,${0.3*i/m.trail.length})`;
+      ctx.beginPath();ctx.moveTo(m.trail[i-1].x,m.trail[i-1].y);ctx.lineTo(t.x,t.y);ctx.stroke();
     });
-    // Head
-    ctx.fillStyle = '#f50';
-    ctx.shadowColor = '#f50';
-    ctx.shadowBlur = 10;
-    ctx.beginPath();
-    ctx.arc(m.x, m.y, 3, 0, Math.PI*2);
-    ctx.fill();
-    ctx.shadowBlur = 0;
+    ctx.fillStyle='#f50';ctx.shadowColor='#f50';ctx.shadowBlur=10;
+    ctx.beginPath();ctx.arc(m.x,m.y,3.5,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
   });
 }
 
-function drawAsteroids() {
-  state.asteroids.forEach(a => {
-    ctx.save();
-    ctx.translate(a.x, a.y);
-    ctx.rotate(a.rot);
-
-    if (a.large) {
-      ctx.strokeStyle = '#f84';
-      ctx.fillStyle = '#2a1a08';
-      ctx.lineWidth = 3;
-      ctx.shadowColor = '#f84';
-      ctx.shadowBlur = 20;
-    } else {
-      ctx.strokeStyle = '#a86';
-      ctx.fillStyle = '#1a1008';
-      ctx.lineWidth = 1.5;
-    }
-
+function drawAsteroids(){
+  G.asteroids.forEach(a=>{
+    ctx.save();ctx.translate(a.x,a.y);ctx.rotate(a.rot);
+    if(a.large){ctx.strokeStyle='#f84';ctx.fillStyle='#2a1a08';ctx.lineWidth=3;ctx.shadowColor='#f84';ctx.shadowBlur=18;}
+    else{ctx.strokeStyle='#a86';ctx.fillStyle='#1a1008';ctx.lineWidth=1.5;ctx.shadowBlur=0;}
     ctx.beginPath();
-    a.verts.forEach((v, i) => i === 0 ? ctx.moveTo(v.x, v.y) : ctx.lineTo(v.x, v.y));
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-    ctx.shadowBlur = 0;
-
-    if (a.large) {
-      ctx.fillStyle = '#f84';
-      ctx.font = 'bold 11px Orbitron';
-      ctx.textAlign = 'center';
-      ctx.fillText(`HP:${a.hp}`, 0, 5);
-    }
-
+    a.verts.forEach((v,i)=>i?ctx.lineTo(v.x,v.y):ctx.moveTo(v.x,v.y));
+    ctx.closePath();ctx.fill();ctx.stroke();ctx.shadowBlur=0;
+    if(a.large){ctx.fillStyle='#f84';ctx.font='bold 11px Orbitron';ctx.textAlign='center';ctx.fillText(`HP:${a.hp}`,0,5);}
     ctx.restore();
   });
 }
 
-function drawShip() {
-  const s = state.ship;
-  if (s.invincible > 0 && Math.floor(s.invincible * 8) % 2 === 0) return;
-
-  // Trail
-  s.trail.forEach((t, i) => {
-    const alpha = (i / s.trail.length) * 0.4;
-    ctx.fillStyle = `rgba(0,200,255,${alpha})`;
-    ctx.beginPath();
-    ctx.arc(t.x, t.y, 2, 0, Math.PI*2);
-    ctx.fill();
+function drawExplosions(){
+  G.explosions.forEach(e=>{
+    const p=e.age/e.max;
+    ctx.globalAlpha=(1-p)*0.9;
+    ctx.strokeStyle=e.color;ctx.lineWidth=2;ctx.shadowColor=e.color;ctx.shadowBlur=16;
+    ctx.beginPath();ctx.arc(e.x,e.y,e.r,0,Math.PI*2);ctx.stroke();
+    if(p<0.25){ctx.fillStyle=e.color;ctx.globalAlpha=(0.25-p)/0.25*0.5;ctx.beginPath();ctx.arc(e.x,e.y,e.r*0.5,0,Math.PI*2);ctx.fill();}
+    ctx.shadowBlur=0;ctx.globalAlpha=1;
   });
+}
 
-  ctx.save();
-  ctx.translate(s.x, s.y);
-  ctx.rotate(s.angle);
+function drawShip(){
+  const s=G.ship;
+  if(s.invincible>0&&Math.floor(s.invincible*8)%2===0)return;
+  s.trail.forEach((t,i)=>{
+    ctx.globalAlpha=(i/s.trail.length)*0.35;
+    ctx.fillStyle='#0cf';ctx.beginPath();ctx.arc(t.x,t.y,2,0,Math.PI*2);ctx.fill();
+  });ctx.globalAlpha=1;
+  ctx.save();ctx.translate(s.x,s.y);ctx.rotate(s.angle);
+  ctx.shadowColor='#0ff';ctx.shadowBlur=14;
+  ctx.strokeStyle='#0ff';ctx.fillStyle='#003344';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(18,0);ctx.lineTo(-10,-9);ctx.lineTo(-5,0);ctx.lineTo(-10,9);ctx.closePath();
+  ctx.fill();ctx.stroke();
+  ctx.fillStyle='#f80';ctx.shadowColor='#f80';ctx.shadowBlur=8;
+  ctx.beginPath();ctx.arc(-7,0,3,0,Math.PI*2);ctx.fill();
+  ctx.shadowBlur=0;ctx.restore();
+}
 
-  // Ship body
-  ctx.shadowColor = '#0ff';
-  ctx.shadowBlur = 15;
-  ctx.strokeStyle = '#0ff';
-  ctx.fillStyle = '#003344';
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.moveTo(18, 0);
-  ctx.lineTo(-10, -9);
-  ctx.lineTo(-5, 0);
-  ctx.lineTo(-10, 9);
-  ctx.closePath();
-  ctx.fill();
-  ctx.stroke();
+function drawInterceptorBase(){
+  ctx.fillStyle='#0f0';ctx.shadowColor='#0f0';ctx.shadowBlur=10;
+  ctx.beginPath();ctx.arc(BASE_X,BASE_Y,10,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+  ctx.strokeStyle='#0f0';ctx.lineWidth=3;
+  ctx.beginPath();ctx.moveTo(BASE_X,BASE_Y);
+  ctx.lineTo(BASE_X+Math.cos(G.interceptorAngle)*30,BASE_Y+Math.sin(G.interceptorAngle)*30);ctx.stroke();
+}
 
-  // Engine glow
-  ctx.fillStyle = '#f80';
-  ctx.shadowColor = '#f80';
-  ctx.shadowBlur = 8;
-  ctx.beginPath();
-  ctx.arc(-7, 0, 3, 0, Math.PI*2);
-  ctx.fill();
-  ctx.shadowBlur = 0;
+function drawBullets(){
+  ctx.fillStyle='#0ff';ctx.shadowColor='#0ff';ctx.shadowBlur=6;
+  G.shipBullets.forEach(b=>{ctx.beginPath();ctx.arc(b.x,b.y,2.5,0,Math.PI*2);ctx.fill();});
+  ctx.shadowBlur=0;
+}
 
+function drawInterceptorMissiles(){
+  G.interceptorMissiles.forEach(m=>{
+    m.trail.forEach((t,i)=>{
+      if(!i)return;
+      ctx.strokeStyle=`rgba(0,255,80,${0.4*i/m.trail.length})`;ctx.lineWidth=1;
+      ctx.beginPath();ctx.moveTo(m.trail[i-1].x,m.trail[i-1].y);ctx.lineTo(t.x,t.y);ctx.stroke();
+    });
+    ctx.fillStyle='#0f0';ctx.shadowColor='#0f0';ctx.shadowBlur=8;
+    ctx.beginPath();ctx.arc(m.x,m.y,4,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+  });
+}
+
+function drawDefenderShip(){
+  if(!G.defenderShip)return;
+  const ds=G.defenderShip,flip=ds.facingRight?1:-1,wy=Math.sin(ds.wobble)*1.5;
+  ds.trail.forEach((t,i)=>{ctx.globalAlpha=(i/ds.trail.length)*0.3;ctx.fillStyle='#bf0';ctx.beginPath();ctx.arc(t.x,t.y,2.5,0,Math.PI*2);ctx.fill();});
+  ctx.globalAlpha=1;
+  ctx.save();ctx.translate(ds.x,ds.y+wy);ctx.scale(flip,1);
+  ctx.shadowColor='#cf0';ctx.shadowBlur=16;
+  ctx.fillStyle='#2a3800';ctx.strokeStyle='#cf0';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(-55,-8);ctx.lineTo(55,-8);ctx.lineTo(60,0);ctx.lineTo(55,8);ctx.lineTo(-55,8);ctx.lineTo(-60,0);ctx.closePath();ctx.fill();ctx.stroke();
+  ctx.fillStyle='#3a5000';ctx.beginPath();ctx.ellipse(-5,-8,20,7,0,Math.PI,0);ctx.fill();ctx.stroke();
+  ctx.strokeStyle='#ff0';ctx.lineWidth=1;ctx.fillStyle='#1a2800';
+  ctx.beginPath();ctx.ellipse(30,-8,10,5,0,Math.PI,0);ctx.fill();ctx.stroke();
+  ctx.fillStyle='#1a2200';ctx.strokeStyle='#8f0';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(-10,8);ctx.lineTo(10,8);ctx.lineTo(12,20);ctx.lineTo(-12,20);ctx.closePath();ctx.fill();ctx.stroke();
+  ctx.fillStyle='#f80';ctx.shadowColor='#f80';ctx.shadowBlur=12;
+  ctx.beginPath();ctx.ellipse(-60,0,6,4,0,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;
+  if(!ds.wingman){ctx.fillStyle='#cf0';ctx.font='bold 9px Orbitron';ctx.textAlign='center';ctx.shadowColor='#cf0';ctx.shadowBlur=8;ctx.fillText('DEFENDER',0,-26);ctx.shadowBlur=0;}
   ctx.restore();
 }
 
-function drawInterceptorBase() {
-  // Base
-  ctx.fillStyle = '#0f0';
-  ctx.shadowColor = '#0f0';
-  ctx.shadowBlur = 10;
-  ctx.beginPath();
-  ctx.arc(BASE_X, BASE_Y, 10, 0, Math.PI*2);
-  ctx.fill();
-  ctx.shadowBlur = 0;
-
-  // Barrel
-  ctx.strokeStyle = '#0f0';
-  ctx.lineWidth = 3;
-  ctx.beginPath();
-  ctx.moveTo(BASE_X, BASE_Y);
-  ctx.lineTo(
-    BASE_X + Math.cos(state.interceptorAngle) * 28,
-    BASE_Y + Math.sin(state.interceptorAngle) * 28
-  );
-  ctx.stroke();
-}
-
-function drawShipBullets() {
-  ctx.fillStyle = '#0ff';
-  ctx.shadowColor = '#0ff';
-  ctx.shadowBlur = 6;
-  state.shipBullets.forEach(b => {
-    ctx.beginPath();
-    ctx.arc(b.x, b.y, 2.5, 0, Math.PI*2);
-    ctx.fill();
-  });
-  ctx.shadowBlur = 0;
-}
-
-function drawInterceptorMissiles() {
-  state.interceptorMissiles.forEach(m => {
-    m.trail.forEach((t, i) => {
-      if (i === 0) return;
-      ctx.strokeStyle = `rgba(0,255,80,${0.4*(i/m.trail.length)})`;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(m.trail[i-1].x, m.trail[i-1].y);
-      ctx.lineTo(t.x, t.y);
-      ctx.stroke();
-    });
-    ctx.fillStyle = '#0f0';
-    ctx.shadowColor = '#0f0';
-    ctx.shadowBlur = 8;
-    ctx.beginPath();
-    ctx.arc(m.x, m.y, 4, 0, Math.PI*2);
-    ctx.fill();
-    ctx.shadowBlur = 0;
+function drawDefenderLasers(){
+  G.defenderLasers.forEach(l=>{
+    const p=l.life/l.maxLife;
+    ctx.globalAlpha=p*0.35;ctx.strokeStyle='#fff';ctx.lineWidth=6;
+    ctx.beginPath();ctx.moveTo(l.x1,l.y1);ctx.lineTo(l.x2,l.y2);ctx.stroke();
+    ctx.globalAlpha=p;ctx.strokeStyle='#cf0';ctx.lineWidth=2.5;ctx.shadowColor='#cf0';ctx.shadowBlur=12;
+    ctx.beginPath();ctx.moveTo(l.x1,l.y1);ctx.lineTo(l.x2,l.y2);ctx.stroke();
+    ctx.strokeStyle='#fff';ctx.lineWidth=0.8;ctx.shadowBlur=0;
+    ctx.beginPath();ctx.moveTo(l.x1,l.y1);ctx.lineTo(l.x2,l.y2);ctx.stroke();
+    ctx.globalAlpha=1;ctx.shadowBlur=0;
   });
 }
 
-function drawExplosions() {
-  state.explosions.forEach(e => {
-    const pct = e.age / e.maxAge;
-    ctx.globalAlpha = 1 - pct;
-    ctx.strokeStyle = e.color;
-    ctx.lineWidth = 2;
-    ctx.shadowColor = e.color;
-    ctx.shadowBlur = 20;
+function drawAimLine(){
+  ctx.strokeStyle='rgba(0,255,0,0.18)';ctx.lineWidth=1;ctx.setLineDash([5,8]);
+  ctx.beginPath();ctx.moveTo(BASE_X,BASE_Y);
+  ctx.lineTo(BASE_X+Math.cos(G.interceptorAngle)*220,BASE_Y+Math.sin(G.interceptorAngle)*220);
+  ctx.stroke();ctx.setLineDash([]);
+}
+
+function drawEggBanner(){
+  const p=G.eggBanner.t/G.eggBanner.max;
+  const a=p<0.18?p/0.18:p>0.75?(1-(p-0.75)/0.25):1;
+  ctx.globalAlpha=a;
+  ctx.fillStyle='rgba(0,0,0,0.72)';ctx.fillRect(0,H/2-44,W,58);
+  ctx.font='bold 25px Orbitron';ctx.textAlign='center';
+  ctx.fillStyle='#cf0';ctx.shadowColor='#cf0';ctx.shadowBlur=28;
+  ctx.fillText('👾 DEFENDER ACTIVATED 👾',W/2,H/2-10);
+  ctx.font='11px Share Tech Mono';ctx.fillStyle='#ff0';ctx.shadowBlur=0;
+  ctx.fillText('TYPE  D·E·F·E·N·D·E·R  DURING PLAY TO UNLOCK',W/2,H/2+14);
+  ctx.globalAlpha=1;
+}
+
+function drawIntermission(){
+  ctx.fillStyle='rgba(0,255,255,0.06)';ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='#ff0';ctx.shadowColor='#ff0';ctx.shadowBlur=18;
+  ctx.font='bold 20px Orbitron';ctx.textAlign='center';
+  const lbl=G.wave===6?'⚠ BOSS WAVE INCOMING ⚠':`WAVE ${G.wave} INCOMING`;
+  ctx.fillText(lbl,W/2,H/2);ctx.shadowBlur=0;
+  ctx.fillStyle='#0ffa';ctx.font='13px Share Tech Mono';
+  ctx.fillText(`${Math.ceil(Math.max(0,G.intermissionTimer))}s`,W/2,H/2+28);
+}
+
+function drawCursor(){
+  // Show gamepad reticle if controller active
+  if(getPads().length){
+    ctx.strokeStyle='rgba(255,200,0,0.3)';ctx.lineWidth=1;ctx.setLineDash([4,6]);
+    if(G&&G.ship){ctx.beginPath();ctx.moveTo(G.ship.x,G.ship.y);ctx.lineTo(mouse.x,mouse.y);ctx.stroke();}
+    ctx.setLineDash([]);
+    ctx.strokeStyle='#ff0';ctx.lineWidth=1.5;ctx.shadowColor='#ff0';ctx.shadowBlur=7;
+    ctx.beginPath();ctx.arc(mouse.x,mouse.y,9,0,Math.PI*2);ctx.stroke();
     ctx.beginPath();
-    ctx.arc(e.x, e.y, e.radius, 0, Math.PI*2);
-    ctx.stroke();
-
-    // Inner flash
-    if (pct < 0.3) {
-      ctx.fillStyle = e.color;
-      ctx.globalAlpha = (0.3 - pct) / 0.3 * 0.6;
-      ctx.beginPath();
-      ctx.arc(e.x, e.y, e.radius * 0.5, 0, Math.PI*2);
-      ctx.fill();
-    }
-    ctx.shadowBlur = 0;
-  });
-  ctx.globalAlpha = 1;
-}
-
-function drawAimLine() {
-  // Show interceptor aim line
-  ctx.strokeStyle = 'rgba(0,255,0,0.2)';
-  ctx.lineWidth = 1;
-  ctx.setLineDash([5, 8]);
-  ctx.beginPath();
-  ctx.moveTo(BASE_X, BASE_Y);
-  ctx.lineTo(
-    BASE_X + Math.cos(state.interceptorAngle) * 200,
-    BASE_Y + Math.sin(state.interceptorAngle) * 200
-  );
-  ctx.stroke();
-  ctx.setLineDash([]);
-}
-
-function drawCustomCursor() {
-  // Draw crosshair at mouse
-  ctx.strokeStyle = 'rgba(0,255,255,0.8)';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.arc(mouse.x, mouse.y, 8, 0, Math.PI*2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(mouse.x - 14, mouse.y); ctx.lineTo(mouse.x - 9, mouse.y);
-  ctx.moveTo(mouse.x + 9, mouse.y); ctx.lineTo(mouse.x + 14, mouse.y);
-  ctx.moveTo(mouse.x, mouse.y - 14); ctx.lineTo(mouse.x, mouse.y - 9);
-  ctx.moveTo(mouse.x, mouse.y + 9); ctx.lineTo(mouse.x, mouse.y + 14);
-  ctx.stroke();
-}
-
-function drawIntermission() {
-  ctx.fillStyle = 'rgba(0,255,255,0.08)';
-  ctx.fillRect(0, 0, W, H);
-  ctx.fillStyle = '#ff0';
-  ctx.shadowColor = '#ff0';
-  ctx.shadowBlur = 20;
-  ctx.font = 'bold 20px Orbitron';
-  ctx.textAlign = 'center';
-  const waveLabel = state.wave === 6 ? '⚠ BOSS WAVE INCOMING ⚠' : `WAVE ${state.wave} INCOMING`;
-  ctx.fillText(waveLabel, W/2, H/2);
-  ctx.shadowBlur = 0;
-  ctx.fillStyle = '#0ffa';
-  ctx.font = '13px Share Tech Mono';
-  ctx.fillText(`${Math.ceil(state.intermissionTimer)}s`, W/2, H/2 + 28);
-}
-
-function showEndScreen() {
-  cancelAnimationFrame(animId);
-  const overlay = document.getElementById('overlay');
-  const msg = document.getElementById('message');
-  const fs = document.getElementById('final-score');
-  const btn = document.getElementById('start-btn');
-
-  if (state.victory) {
-    msg.textContent = '🌍 EARTH DEFENDED!';
-    msg.style.color = '#0ff';
+    ctx.moveTo(mouse.x-15,mouse.y);ctx.lineTo(mouse.x-10,mouse.y);
+    ctx.moveTo(mouse.x+10,mouse.y);ctx.lineTo(mouse.x+15,mouse.y);
+    ctx.moveTo(mouse.x,mouse.y-15);ctx.lineTo(mouse.x,mouse.y-10);
+    ctx.moveTo(mouse.x,mouse.y+10);ctx.lineTo(mouse.x,mouse.y+15);
+    ctx.stroke();ctx.shadowBlur=0;
   } else {
-    msg.textContent = '💥 EARTH DESTROYED';
-    msg.style.color = '#f00';
+    ctx.strokeStyle='rgba(0,255,255,0.8)';ctx.lineWidth=1;
+    ctx.beginPath();ctx.arc(mouse.x,mouse.y,8,0,Math.PI*2);ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(mouse.x-14,mouse.y);ctx.lineTo(mouse.x-9,mouse.y);
+    ctx.moveTo(mouse.x+9,mouse.y);ctx.lineTo(mouse.x+14,mouse.y);
+    ctx.moveTo(mouse.x,mouse.y-14);ctx.lineTo(mouse.x,mouse.y-9);
+    ctx.moveTo(mouse.x,mouse.y+9);ctx.lineTo(mouse.x,mouse.y+14);
+    ctx.stroke();
   }
-
-  const alive = state.cities.filter(c => c.alive).length;
-  fs.textContent = `SCORE: ${state.score} | CITIES SAVED: ${alive}/6`;
-  btn.textContent = 'PLAY AGAIN';
-  overlay.style.display = 'flex';
 }
 
-// --- Input ---
-canvas.addEventListener('mousemove', e => {
-  const r = canvas.getBoundingClientRect();
-  mouse.x = e.clientX - r.left;
-  mouse.y = e.clientY - r.top;
-});
+// ── end screen ─────────────────────────────────────────
+function showEndScreen(){
+  cancelAnimationFrame(animId);
+  const msg=document.getElementById('message');
+  const fs=document.getElementById('final-score');
+  const btn=document.getElementById('start-btn');
+  msg.textContent = G.victory ? '🌍 EARTH DEFENDED!' : '💥 EARTH DESTROYED';
+  msg.style.color  = G.victory ? '#0ff' : '#f00';
+  const alive=G.cities.filter(c=>c.alive).length;
+  fs.textContent=`SCORE: ${G.score} | CITIES SAVED: ${alive}/6`;
+  btn.textContent='PLAY AGAIN';
+  document.getElementById('overlay').style.display='flex';
+}
 
-canvas.addEventListener('click', e => {
-  if (!state.waveActive) return;
-  const r = canvas.getBoundingClientRect();
-  const mx = e.clientX - r.left, my = e.clientY - r.top;
-  const angle = Math.atan2(my - state.ship.y, mx - state.ship.x);
-  fireShipBullet(state.ship.x, state.ship.y, angle);
-});
-
-window.addEventListener('keydown', e => {
-  keys[e.key] = true;
-  if (e.key === ' ') e.preventDefault();
-
-  // Easter egg: type DEFENDER
-  if (state.waveActive && !eggUnlocked) {
-    const ch = e.key.toUpperCase();
-    if (ch.length === 1 && DEFENDER_CODE[eggBuffer.length] === ch) {
-      eggBuffer += ch;
-      if (eggBuffer === DEFENDER_CODE) {
-        triggerDefenderEgg();
-        eggBuffer = '';
-      }
-    } else {
-      eggBuffer = (DEFENDER_CODE[0] === ch) ? ch : '';
-    }
-  }
-});
-window.addEventListener('keyup', e => { keys[e.key] = false; });
-
-function startGame() {
-  document.getElementById('overlay').style.display = 'none';
-  document.getElementById('message').textContent = '';
-  document.getElementById('final-score').textContent = '';
-
-  state = initState();
-  state.intermissionTimer = 2;
-  state.waveActive = false;
-  eggUnlocked = false;
-  eggBuffer = '';
-  eggBanner = null;
-  defenderShip = null;
-  defenderLasers = [];
-  defenderEntryPhase = false;
-  document.getElementById('ship-lives').textContent = state.ship.lives;
-  document.getElementById('missile-ammo').textContent = state.interceptorAmmo;
-  document.getElementById('wave-display').textContent = `WAVE 1 / ${state.totalWaves}`;
-  document.getElementById('score-display').textContent = 'SCORE: 0';
-
-  lastTime = performance.now();
-  updateGamepadHUD();
-  animId = requestAnimationFrame(loop);
+// ── start ──────────────────────────────────────────────
+function startGame(){
+  cancelAnimationFrame(animId);
+  document.getElementById('overlay').style.display='none';
+  document.getElementById('message').textContent='';
+  document.getElementById('final-score').textContent='';
+  eggBuf='';
+  mouseHeld=false;
+  gp1Prev=false; gp2Prev=false;
+  G=makeGame();
+  document.getElementById('ship-lives').textContent=G.ship.lives;
+  document.getElementById('missile-ammo').textContent=G.interceptorAmmo;
+  document.getElementById('wave-display').textContent='WAVE 1 / 6';
+  document.getElementById('score-display').textContent='SCORE: 0';
+  updateGPHUD();
+  lastTime=performance.now();
+  animId=requestAnimationFrame(loop);
 }
 </script>
 </body>
